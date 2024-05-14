@@ -1,1 +1,26 @@
-<p>read-user works!</p>
+<div class="container mt-3">
+  <h1> Visualizar Usuarios </h1>
+</div>
+
+<table class="table-fill mt-2">
+  <thead>
+  <tr>
+    <th class="text-left">Cedula</th>
+    <th class="text-left">Nombre</th>
+    <th class="text-left">Correo</th>
+    <th class="text-left">Vehiculo</th>
+  </tr>
+  </thead>
+  <tbody class="table-hover">
+  <tr *ngFor="let item of listUsers">
+    <td class="text-center">{{item.cedula}}</td>
+    <td class="text-center">{{item.nombre}}</td>
+    <td class="text-center">{{item.correo}}</td>
+    <td class="text-center actions" routerLinkActive="active">
+      <button type="button" class="btn btn-primary buttoncard" [routerLink]="['/read-videogame',item.id]">
+        <i class="fa fa-list"></i>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
