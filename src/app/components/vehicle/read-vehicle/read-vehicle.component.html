@@ -1,1 +1,33 @@
-<p>read-vehicle works!</p>
+<div class="container mt-3">
+  <h1> Read VideoGames </h1>
+</div>
+<div class="filtrer mt-2">
+  <label for="filtroMultijugador">Filter by Multiplayer:</label>
+  <select id="filtroMultijugador" [(ngModel)]="filtroMultijugador" (change)="onChangeFiltroMultijugador()">
+    <option value="todos">All</option>
+    <option value="true">Multiplayer</option>
+    <option value="false">No Multiplayer</option>
+  </select>
+</div>
+
+<table class="table-fill mt-2">
+  <thead>
+  <tr>
+    <th class="text-left">ID</th>
+    <th class="text-left">Name</th>
+    <th class="text-left">Price</th>
+    <th class="text-left">Release Date</th>
+    <th class="text-left">Multiplayer</th>
+  </tr>
+  </thead>
+  <tbody class="table-hover">
+  <tr *ngFor="let item of listVideojuegos">
+    <td class="text-center">{{item.id}}</td>
+    <td class="text-center">{{item.nombre}}</td>
+    <td class="text-center">$ {{item.precio}} COP</td>
+    <td class="text-center">{{item.fechaLanzamiento}}</td>
+    <td class="text-center" *ngIf="item.multijugador">Si</td>
+    <td class="text-center" *ngIf="!item.multijugador">No</td>
+  </tr>
+  </tbody>
+</table>
