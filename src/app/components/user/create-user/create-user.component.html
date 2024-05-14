@@ -1,1 +1,38 @@
-<p>create-user works!</p>
+<div class="row g-3 needs-validation" [formGroup]="formUser" novalidate>
+  <div class="col-md-12">
+    <form class="row g-3 needs-validation" [formGroup]="formUser" novalidate (ngSubmit)="crearUsuario()">
+      <h1> Create User</h1>
+
+      <fieldset>
+        <legend style="font-size: 15px;"><span class="number">!</span>Please fill out all the information.</legend>
+
+        <label for="validationDefault01" class="form-label">ID:</label>
+        <input type="text" class="form-control" id="validationDefault01"
+               placeholder="Enter the User ID" formControlName="id" required pattern="[0-9]+"
+               [ngClass]="{ 'is-invalid': formUser.get('id')?.invalid && (formUser.get('id')?.touched || formUser.get('id')?.dirty) }">
+        <div class="invalid-feedback">
+          Please enter a valid ID.
+        </div>
+
+        <label for="validationDefault02" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="validationDefault02"
+               placeholder="Enter the name of the User" formControlName="nombre" required
+               [ngClass]="{ 'is-invalid': formUser.get('nombre')?.invalid && (formUser.get('nombre')?.touched || formUser.get('nombre')?.dirty) }">
+        <div class="invalid-feedback">
+          Please enter a valid First Name.
+        </div>
+
+
+      </fieldset>
+      <div *ngIf="mostrarAlerta" class="alert alert-success" role="alert">
+        Successfully created user!
+      </div>
+      <div *ngIf="mostrarAlertaID" class="alert alert-danger" role="alert">
+        The user ID already exists!
+      </div>
+      <button class="buttonform btn btn-primary" type="submit" [disabled]="!formUser.valid">Create</button>
+
+    </form>
+  </div>
+</div>
+
