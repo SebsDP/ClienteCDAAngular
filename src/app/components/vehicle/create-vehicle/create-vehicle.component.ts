@@ -5,62 +5,62 @@ import { UserModel } from '../../../model/user.model';
 
 @Component({
   selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  templateUrl: './create-vehicle.component.html',
+  styleUrls: ['./create-vehicle.component.css']
 })
 export class CreateComponent implements OnInit {
 
   mostrarAlerta: boolean = false;
   mostrarAlertaID: boolean = false;
   mostrarForm: boolean = false;
-  existentIds: string[] = [];
-  formVideojuego: FormGroup = new FormGroup({});
+  existentPlacas: string[] = [];
+  formVehiculo: FormGroup = new FormGroup({});
   usuarioEncontrado: UserModel | null = null;
 
   constructor(private service: ServicioCdaService) { }
 
   ngOnInit(): void {
-    this.formVideojuego = new FormGroup({
-      placa: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+    this.formVehiculo = new FormGroup({
+      placa: new FormControl('', [Validators.required]),
       haySoat: new FormControl('', [Validators.required]),
       resultTecno: new FormControl('', [Validators.required]),
-      fechaLanzamiento: new FormControl('', [Validators.required])
+      fecha: new FormControl('', [Validators.required])
     });
 
   }
 
-  crearVideojuego() {
-    if (this.formVideojuego.valid) {
+  crearVehiculo() {
+    if (this.formVehiculo.valid) {
       if (!this.usuarioEncontrado) {
         return;
       }
 
-      const idUsuario = this.usuarioEncontrado.cedula;
-      const idJuego = this.formVideojuego.get('placa')?.value;
+      const cedulaUsuario = this.usuarioEncontrado.cedula;
+      const placaVehiculo = this.formVehiculo.get('placa')?.value;
 
-      let juegoExistente = false;
-      for (let i = 0; i < this.existentIds.length; i++) {
-        if (this.existentIds[i] === idJuego) {
-          juegoExistente = true;
+      let vehiculoExistente = false;
+      for (let i = 0; i < this.existentPlacas.length; i++) {
+        if (this.existentPlacas[i] === placaVehiculo) {
+          vehiculoExistente = true;
           break;
         }
       }
 
-      if (this.existentIds.includes(idJuego)) {
+      if (this.existentPlacas.includes(placaVehiculo)) {
         this.mostrarAlertaID = true;
         setTimeout(() => {
           this.mostrarAlertaID = false;
         }, 5000);
         return;
       } else {
-        const videojuegoData = {
-          ...this.formVideojuego.value,
-          usuarioId: idUsuario
+        const vehiculoData = {
+          ...this.formVehiculo.value,
+          cedulaU : cedulaUsuario
         };
 
-        this.service.agregarVehiculos(idUsuario, videojuegoData).subscribe(resp => {
+        this.service.agregarVehiculos(cedulaUsuario, vehiculoData).subscribe(resp => {
           if (resp) {
-            this.formVideojuego.reset();
+            this.formVehiculo.reset();
             this.mostrarAlerta = true;
             setTimeout(() => {
               this.mostrarAlerta = false;
@@ -74,9 +74,21 @@ export class CreateComponent implements OnInit {
   }
 
   private marcarControlesComoTocados() {
-    Object.values(this.formVideojuego.controls).forEach(control => {
+    Object.values(this.formVehiculo.controls).forEach(control => {
       control.markAsTouched();
     });
   }
 
+  onUserEncontrado(user: UserModel | null): void {
+    this.usuarioEncontrado = user;
+    if (user) {
+      this.mostrarForm = true;
+      this.service.leerVehiculo(user.cedula).subscribe(vehiculos => {
+        this.existentPlacas = vehiculos.map(vehiculo => vehiculo.placa);
+        console.log('Lista de plcas de Vehiculos:', this.existentPlacas);
+      });
+    } else {
+      this.formVehiculo.reset();
+    }
+  }
 }

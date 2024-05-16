@@ -14,12 +14,12 @@ export class ServicioCdaService {
   //Vehiculos
 
 
-  leerVehiculo(placa: string): Observable<VehicleModel[]> {
-    return this.http.get<VehicleModel[]>(`http://localhost:8080/vehiculos/${placa}`);
+  leerVehiculo(cedula: number): Observable<VehicleModel[]> {
+    return this.http.get<VehicleModel[]>(`http://localhost:8080/vehiculos/${cedula}`);
   }
 
-  agregarVehiculos(placa:number, request: any): Observable<VehicleModel[]>{
-    return this.http.post<VehicleModel[]>(`http://localhost:8080/vehiculos/${placa}`, request)
+  agregarVehiculos(cedula:number, request: any): Observable<VehicleModel[]>{
+    return this.http.post<VehicleModel[]>(`http://localhost:8080/vehiculos/${cedula}`, request)
       .pipe(map((data) => data));
   }
 

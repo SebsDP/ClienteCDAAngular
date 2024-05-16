@@ -22,9 +22,7 @@ export class CreateUserComponent {
     this.formUser = new FormGroup({
       id: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
       nombre: new FormControl('', [Validators.required]),
-      estatura: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]+)?$')]),
-      esPremium: new FormControl('', [Validators.required]),
-      fechaNacimiento: new FormControl('', [Validators.required])
+      correo: new FormControl('', [Validators.required])
     });
 
   }

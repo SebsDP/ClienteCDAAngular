@@ -1,34 +1,43 @@
 <div class="row g-3 needs-validation" [formGroup]="formUser" novalidate>
   <div class="col-md-12">
     <form class="row g-3 needs-validation" [formGroup]="formUser" novalidate (ngSubmit)="crearUsuario()">
-      <h1> Create User</h1>
+      <h1> Registrar Usuario</h1>
 
       <fieldset>
-        <legend style="font-size: 15px;"><span class="number">!</span>Please fill out all the information.</legend>
 
-        <label for="validationDefault01" class="form-label">ID:</label>
+        <legend style="font-size: 15px;"><span class="number">!</span>Por favor asegurese de llenar todo el formulario.</legend>
+
+        <label for="validationDefault01" class="form-label">Cedula:</label>
         <input type="text" class="form-control" id="validationDefault01"
-               placeholder="Enter the User ID" formControlName="id" required pattern="[0-9]+"
+               placeholder="Ingrese la cedula del usuario" formControlName="id" required pattern="[0-9]+"
                [ngClass]="{ 'is-invalid': formUser.get('id')?.invalid && (formUser.get('id')?.touched || formUser.get('id')?.dirty) }">
         <div class="invalid-feedback">
-          Please enter a valid ID.
+          Por favor ingrese una cedula valida
         </div>
 
-        <label for="validationDefault02" class="form-label">Name:</label>
+        <label for="validationDefault02" class="form-label">Nombre:</label>
         <input type="text" class="form-control" id="validationDefault02"
-               placeholder="Enter the name of the User" formControlName="nombre" required
+               placeholder="Ingrese el nombre del usuario" formControlName="nombre" required
                [ngClass]="{ 'is-invalid': formUser.get('nombre')?.invalid && (formUser.get('nombre')?.touched || formUser.get('nombre')?.dirty) }">
         <div class="invalid-feedback">
-          Please enter a valid First Name.
+          Por favor ingrese un nombre valido.
         </div>
 
+        <label for="validationDefault02" class="form-label">Correo:</label>
+        <input type="text" class="form-control" id="validationDefault03"
+               placeholder="Ingrese el correo del usuario" formControlName="correo" required
+               [ngClass]="{ 'is-invalid': formUser.get('correo')?.invalid && (formUser.get('correo')?.touched || formUser.get('correo')?.dirty) }">
+        <div class="invalid-feedback">
+          Por favor ingrese un correo valido.
+        </div>
 
       </fieldset>
+
       <div *ngIf="mostrarAlerta" class="alert alert-success" role="alert">
-        Successfully created user!
+        El usuario ha sido creado con exito
       </div>
       <div *ngIf="mostrarAlertaID" class="alert alert-danger" role="alert">
-        The user ID already exists!
+        El usuario ya exite en el sistema
       </div>
       <button class="buttonform btn btn-primary" type="submit" [disabled]="!formUser.valid">Create</button>
 

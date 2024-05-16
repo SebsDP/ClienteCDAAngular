@@ -1,5 +1,5 @@
 <div class="mt-3">
-  <h1> Update User</h1>
+  <h1> Actualizar Usuario</h1>
 </div>
 
 <app-search (usuarioEncontrado)="onUsuarioEncontrado($event)"></app-search>
@@ -10,61 +10,38 @@
 
 
       <fieldset>
-        <legend style="font-size: 15px;"><span class="number">!</span>Please fill out all the information.</legend>
+        <legend style="font-size: 15px;"><span class="number">!</span>Llene los campos para actualizar el usuario.</legend>
 
-        <label for="validationDefault01" class="form-label">ID:</label>
+        <label for="validationDefault01" class="form-label">Cedula:</label>
         <input type="text" class="form-control" id="validationDefault01"
-               placeholder="Enter the User ID" formControlName="id" required pattern="[0-9]+"
+               placeholder="Ingrese la cedula del usuario" formControlName="id" required pattern="[0-9]+"
                [ngClass]="{ 'is-invalid': formUsuario.get('id')?.invalid && (formUsuario.get('id')?.touched || formUsuario.get('id')?.dirty) }">
         <div class="invalid-feedback">
-          Please enter a valid ID.
+          Por favor ingrese una cedula valida
         </div>
 
-        <label for="validationDefault02" class="form-label">Name:</label>
+        <label for="validationDefault02" class="form-label">Nombre:</label>
         <input type="text" class="form-control" id="validationDefault02"
-               placeholder="Enter the name of theUser" formControlName="nombre" required
-               [ngClass]="{ 'is-invalid': formUsuario.get('nombreUser')?.invalid && (formUsuario.get('nombreUser')?.touched || formUsuario.get('nombreUser')?.dirty) }">
+               placeholder="Ingrese el nombre del usuario" formControlName="nombre" required
+               [ngClass]="{ 'is-invalid': formUsuario.get('nombre')?.invalid && (formUsuario.get('nombre')?.touched || formUsuario.get('nombre')?.dirty) }">
         <div class="invalid-feedback">
-          Please enter a valid First Name.
+          Por favor ingrese un nombre valido.
         </div>
 
-        <label for="validationDefault03" class="form-label">Height:</label>
+        <label for="validationDefault02" class="form-label">Correo:</label>
         <input type="text" class="form-control" id="validationDefault03"
-               placeholder="Enter the Height of the User" formControlName="estatura" required pattern="[0-9]+(\.[0-9]+)?"
-               [ngClass]="{ 'is-invalid': formUsuario.get('estatura')?.invalid && (formUsuario.get('estatura')?.touched || formUsuario.get('estatura')?.dirty) }">
+               placeholder="Ingrese el correo del usuario" formControlName="correo" required
+               [ngClass]="{ 'is-invalid': formUsuario.get('correo')?.invalid && (formUsuario.get('correo')?.touched || formUsuario.get('correo')?.dirty) }">
         <div class="invalid-feedback">
-          Please enter a valid price.
-        </div>
-
-        <label for="validationDefault04" class="form-label">Birthdate:</label>
-        <input type="datetime-local" class="form-control" id="validationDefault04"
-               formControlName="fechaNacimiento" required
-               [ngClass]="{ 'is-invalid': formUsuario.get('fechaLanzamiento')?.invalid && (formUsuario.get('fechaLanzamiento')?.touched || formUsuario.get('fechaLanzamiento')?.dirty) }">
-        <div class="invalid-feedback">
-          Please enter a valid release date.
-        </div>
-
-        <label class="form-label">Premium:</label>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" value="true" formControlName="esPremium"
-                 id="esPremiumTrue">
-          <label class="form-check-label" for="esPremiumTrue">Yes</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" value="false" formControlName="esPremium"
-                 id="esPremiumFalse">
-          <label class="form-check-label" for="esPremiumFalse">No</label>
-        </div>
-        <div class="invalid-feedback">
-          Por favor seleccione si el juego es premium o no.
+          Por favor ingrese un correo valido.
         </div>
 
       </fieldset>
       <div *ngIf="mostrarAlerta" class="alert alert-success" role="alert">
-        User updated correctly!
+        El Usuario fue actualizado correctamente
       </div>
       <div *ngIf="mostrarAlertaID" class="alert alert-danger" role="alert">
-        The User ID already exists!
+        El Usuario ya existe
       </div>
       <button class="buttonform btn btn-primary" type="submit" [disabled]="!formUsuario.valid">Update</button>
     </form>
