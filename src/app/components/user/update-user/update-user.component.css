@@ -1,0 +1,73 @@
+/* src/app/components/user/create-user/create-user.component.css */
+.form-container {
+  background-color: #9AB9CA;
+  border-radius: 15px;
+  padding: 20px;
+  width: 50%;
+  margin: 50px auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #050A35;
+}
+
+h2 {
+  text-align: center;
+  color: #050A35;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #050A35;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;  /* Cambio aquí para bordes redondeados */
+  box-sizing: border-box;
+}
+
+button {
+  display: block;
+  width: 50%;
+  padding: 10px;
+  background-color: #050A35;
+  color: white;
+  border: none;
+  border-radius: 15px;  /* Cambio aquí para bordes redondeados */
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
+button:hover {
+  background-color: #004080;
+}
+
+.error-message,
+.success-message {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+}

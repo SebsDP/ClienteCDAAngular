@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpdateVehicleComponent } from './update-vehicle.component';
+import { ReadQrComponent } from './read-qr.component';
 
-describe('UpdateVehicleComponent', () => {
-  let component: UpdateVehicleComponent;
-  let fixture: ComponentFixture<UpdateVehicleComponent>;
+describe('ReadVehicleComponent', () => {
+  let component: ReadQrComponent;
+  let fixture: ComponentFixture<ReadQrComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UpdateVehicleComponent]
+      imports: [ReadQrComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UpdateVehicleComponent);
+    fixture = TestBed.createComponent(ReadQrComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

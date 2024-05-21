@@ -1,0 +1,91 @@
+/* src/app/app.component.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #9AB9CA;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #050A35;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-container {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+  position: relative;
+}
+
+nav ul li a {
+  color: #050A35 !important;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #9AB9CA;
+  padding: 10px 15px;
+  border-radius: 25px;
+  transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #0056b3;
+  color: white !important;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #9AB9CA;
+  min-width: 120px; /* Reducido el ancho del menú */
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 10px;
+  padding: 5px 0; /* Añadir padding para ajustar el espacio interno */
+}
+
+.dropdown-content a {
+  color: #050A35 !important;
+  padding: 8px 12px; /* Ajustar el padding interno de los elementos del menú */
+  text-decoration: none;
+  display: block;
+  font-size: 14px; /* Reducido el tamaño de la fuente para hacer el menú más compacto */
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.dropdown-content a:hover {
+  background-color: #0056b3;
+  color: white !important;
+}
+
+.show {
+  display: block;
+}
+
+.dropbtn {
+  cursor: pointer;
+}

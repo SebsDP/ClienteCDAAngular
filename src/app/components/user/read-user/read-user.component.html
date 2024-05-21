@@ -1,1 +1,27 @@
-<p>read-user works!</p>
+<!-- src/app/components/user/read-user/read-user.component.html -->
+<div class="form-container">
+  <h2>Consultar Usuarios</h2>
+  <div *ngIf="usuarios.length">
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>NOMBRE</th>
+        <th>CÉDULA</th>
+        <th>CORREO ELECTRÓNICO</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let usuario of usuarios; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.cedula }}</td>
+        <td>{{ usuario.correo }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="!usuarios.length">
+    <p>No se encontraron usuarios.</p>
+  </div>
+</div>

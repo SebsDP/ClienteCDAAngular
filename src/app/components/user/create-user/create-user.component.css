@@ -1,0 +1,60 @@
+/* src/app/components/user/create-user/create-user.component.css */
+.form-container {
+  width: 400px; /* Reducido el ancho del contenedor */
+  margin: 50px auto; /* Añadido margen superior para separarlo del navbar */
+  padding: 30px; /* Aumentado el padding para que el formulario sea más alargado */
+  border: 2px solid #050A35;
+  border-radius: 15px;
+  background-color: #9AB9CA;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left; /* Cambiado el texto a la izquierda */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px; /* Aumentado el margen inferior */
+  color: #050A35;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 20px; /* Aumentado el margen inferior para separar más los campos */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px; /* Aumentado el margen inferior */
+  color: #050A35;
+  font-weight: bold;
+  text-transform: uppercase; /* Cambiado el texto a mayúsculas */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box; /* Añadido para asegurar que el padding no desborde el contenedor */
+}
+
+button {
+  background-color: #050A35;
+  color: white;
+  padding: 15px; /* Aumentado el padding para hacer el botón más alto */
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+.success-message {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}

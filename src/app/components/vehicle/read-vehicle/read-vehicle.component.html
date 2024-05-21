@@ -1,1 +1,37 @@
-<p>read-vehicle works!</p>
+<div class="form-container">
+  <h2>Consultar Vehículos</h2>
+  <div class="form-group">
+    <label for="usuarioId">CÉDULA</label>
+    <input type="number" id="usuarioId" [(ngModel)]="usuarioId" name="usuarioId" placeholder="Ingrese la cédula del usuario">
+    <button (click)="buscarVehiculos()">Buscar</button>
+  </div>
+  <div *ngIf="vehiculos.length > 0">
+    <h3>VEHÍCULOS DEL USUARIO</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>Placa</th>
+        <th>Fecha</th>
+        <th>Resultado Técnico</th>
+        <th>SOAT</th>
+        <th>Tipo</th>
+        <th>Detalles</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let vehiculo of vehiculos">
+        <td>{{ vehiculo.placa }}</td>
+        <td>{{ vehiculo.fecha | date }}</td>
+        <td>{{ vehiculo.resultadoTecno ? 'Aprobado' : 'Reprobado' }}</td>
+        <td>{{ vehiculo.soat ? 'Vigente' : 'Vencido' }}</td>
+        <td>{{ vehiculo.tipoVehiculo }}</td>
+        <td>
+          <span *ngIf="vehiculo.tipoVehiculo === 'motocicleta'">Cilindraje: {{ vehiculo['cilindraje'] }}</span>
+          <span *ngIf="vehiculo.tipoVehiculo === 'ligero'">Número de Airbags: {{ vehiculo['numAirbag'] }}</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+</div>

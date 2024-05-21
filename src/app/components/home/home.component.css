@@ -1,0 +1,24 @@
+/* src/app/components/home/home.component.css */
+.home-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.home-image {
+  width: 500px;
+  height: auto;
+}
+
+h1 {
+  font-size: 48px;
+  margin: 20px 0 10px;
+  color: #050A35;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 24px;
+  margin: 0;
+  color: #050A35;
+  font-weight: bold;
+}
