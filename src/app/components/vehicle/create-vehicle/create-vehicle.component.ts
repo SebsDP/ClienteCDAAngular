@@ -14,7 +14,6 @@ export class CreateVehicleComponent {
   vehiculo: Vehiculo = {
     placa: '',
     fecha: new Date(),
-    resultadoTecno: false,
     soat: false,
     tipoVehiculo: ''
   };
@@ -22,53 +21,104 @@ export class CreateVehicleComponent {
   errorMessage: string = '';
   showAlert: boolean = false;
   alertMessage: string = '';
+  imagePreview: string | null = null; // Previsualización de la imagen
+  isSubmitting: boolean = false; // Estado para deshabilitar el botón mientras se registra el vehículo
 
   constructor(private servicioCda: ServicioCdaService) {}
 
+  // Buscar usuario por cédula
   buscarUsuario(): void {
-    if (this.usuarioId !== undefined) {
-      this.servicioCda.getUsuarioById(this.usuarioId).subscribe(
-        response => {
-          this.usuarioEncontrado = true;
-          this.errorMessage = '';
-        },
-        error => {
-          this.usuarioEncontrado = false;
-          this.errorMessage = 'No se encontró un usuario con esa cédula.';
-        }
-      );
+    if (!this.usuarioId) {
+      this.errorMessage = 'Debe ingresar la cédula del usuario.';
+      this.mostrarAlerta();
+      return;
+    }
+
+    this.servicioCda.getUsuarioById(this.usuarioId).subscribe(
+      () => {
+        this.usuarioEncontrado = true;
+        this.errorMessage = '';
+      },
+      () => {
+        this.usuarioEncontrado = false;
+        this.errorMessage = 'No se encontró un usuario con esa cédula.';
+        this.mostrarAlerta();
+      }
+    );
+  }
+
+  // Previsualizar la imagen seleccionada
+  onImageSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        this.imagePreview = (e.target as FileReader).result as string;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.imagePreview = null; // Limpiar la vista previa si no hay archivo seleccionado
     }
   }
 
-  crearVehiculo(form: NgForm): void {
-    if (this.usuarioId !== undefined) {
-      this.servicioCda.createVehiculo(this.usuarioId, this.vehiculo).subscribe(
-        response => {
-          this.successMessage = 'Vehículo registrado exitosamente';
-          this.alertMessage = this.vehiculo.resultadoTecno ? 'Su resultado técnico-mecánico ha sido aprobado' : 'Su resultado técnico-mecánico ha sido reprobado';
-          this.showAlert = true;
-          this.errorMessage = '';  // Limpiar el mensaje de error si se registra correctamente
-          form.resetForm();
-          setTimeout(() => {
-            this.successMessage = '';
-            this.showAlert = false;
-          }, 3000);
-        },
-        error => {
-          if (error.error.message && error.error.message.includes('SOAT')) {
-            this.errorMessage = 'El vehículo no se puede registrar porque el SOAT no es válido';
-          } else {
-            this.errorMessage = error.error.message || 'El vehículo no se puede registrar porque el SOAT no es válido';
-          }
-          setTimeout(() => {
-            this.errorMessage = '';
-          }, 3000);
-        }
-      );
+  // Crear un vehículo con imagen
+  crearVehiculo(form: NgForm, imageInput: HTMLInputElement): void {
+    const imageFile = imageInput.files ? imageInput.files[0] : null;
+
+    if (!this.usuarioId) {
+      this.errorMessage = 'Debe ingresar la cédula del usuario.';
+      this.mostrarAlerta();
+      return;
     }
+
+    if (!imageFile) {
+      this.errorMessage = 'Debe seleccionar una imagen para el vehículo.';
+      this.mostrarAlerta();
+      return;
+    }
+
+    if (this.isSubmitting) {
+      return; // Evitar múltiples envíos
+    }
+
+    this.isSubmitting = true;
+
+    this.servicioCda.createVehiculoWithImage(this.usuarioId, this.vehiculo, imageFile).subscribe(
+      () => {
+        this.successMessage = 'Vehículo registrado exitosamente.';
+        this.alertMessage = this.successMessage;
+        this.showAlert = true;
+        this.errorMessage = '';
+        form.resetForm();
+        this.imagePreview = null; // Limpiar la vista previa de la imagen
+        this.usuarioEncontrado = false;
+        this.isSubmitting = false;
+        setTimeout(() => this.cerrarAlerta(), 3000);
+      },
+      error => {
+        this.errorMessage = error.error.message || 'Error al registrar el vehículo.';
+        this.mostrarAlerta();
+        this.isSubmitting = false;
+      }
+    );
   }
 
-  closeModal(): void {
+  // Mostrar alerta
+  private mostrarAlerta(): void {
+    this.alertMessage = this.errorMessage || this.successMessage;
+    this.showAlert = true;
+    setTimeout(() => this.cerrarAlerta(), 3000);
+  }
+
+  // Cerrar alerta
+  private cerrarAlerta(): void {
+    this.errorMessage = '';
+    this.successMessage = '';
     this.showAlert = false;
+  }
+
+  // Método para cerrar el modal manualmente
+  closeModal(): void {
+    this.cerrarAlerta();
   }
 }

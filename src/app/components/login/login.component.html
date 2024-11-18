@@ -1,0 +1,34 @@
+<!-- Navbar simplificado solo para la página de login -->
+<div class="navbar-login">
+  <div class="logo-container">
+    <img src="assets/icono.png" alt="Logo" class="logo" />
+    <h1 class="brand-name">CDA DIAGNOSTICENTRO DEL TOLIMA</h1>
+  </div>
+</div>
+<div class="login-container">
+  <div class="login-box">
+    <h2>Login</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="username"
+          name="username"
+          placeholder="Username"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+      </div>
+      <button type="submit" class="login-button">LOGIN</button>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </form>
+  </div>
+</div>

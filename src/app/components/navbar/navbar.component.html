@@ -1,0 +1,69 @@
+<div class="navbar" (click)="closeAllMenus()">
+    <div class="logo-container">
+        <img src="assets/icono.png" alt="Logo" class="logo" />
+        <h1>CDA DIAGNOSTICENTRO DEL TOLIMA</h1>
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a (click)="goToHome()" style="cursor: pointer;">Inicio</a>
+            </li>
+
+            <!-- Menú Empleado (solo visible para administradores) -->
+            <li *ngIf="isAdmin" class="dropdown" (click)="toggleMenu('employee', $event)">
+                <a href="javascript:void(0)" class="dropbtn">Empleado</a>
+                <div class="dropdown-content" [class.show]="activeMenu === 'employee'" (click)="$event.stopPropagation()">
+                    <a routerLink="/create-employee" (click)="closeMenusAndNavigate()">Registrar</a>
+                    <a routerLink="/read-employee" (click)="closeMenusAndNavigate()">Leer</a>
+                    <a routerLink="/update-employee" (click)="closeMenusAndNavigate()">Actualizar</a>
+                    <a routerLink="/delete-employee" (click)="closeMenusAndNavigate()">Eliminar</a>
+                </div>
+            </li>
+
+            <!-- Menú Usuario -->
+            <li class="dropdown" (click)="toggleMenu('user', $event)">
+                <a href="javascript:void(0)" class="dropbtn">Cliente</a>
+                <div class="dropdown-content" [class.show]="activeMenu === 'user'" (click)="$event.stopPropagation()">
+                    <a routerLink="/create-user" (click)="closeMenusAndNavigate()">Registrar</a>
+                    <a routerLink="/read-user" (click)="closeMenusAndNavigate()">Leer</a>
+                    <a routerLink="/update-user" (click)="closeMenusAndNavigate()">Actualizar</a>
+                    <a routerLink="/delete-user" (click)="closeMenusAndNavigate()">Eliminar</a>
+                </div>
+            </li>
+
+            <!-- Menú Vehículo -->
+            <li class="dropdown" (click)="toggleMenu('vehicle', $event)">
+                <a href="javascript:void(0)" class="dropbtn">Vehículo</a>
+                <div class="dropdown-content" [class.show]="activeMenu === 'vehicle'" (click)="$event.stopPropagation()">
+                    <a routerLink="/create-vehicle" (click)="closeMenusAndNavigate()">Registrar</a>
+                    <a routerLink="/read-vehicle" (click)="closeMenusAndNavigate()">Leer</a>
+                    <a routerLink="/update-vehicle" (click)="closeMenusAndNavigate()">Actualizar</a>
+                    <a routerLink="/delete-vehicle" (click)="closeMenusAndNavigate()">Eliminar</a>
+                </div>
+            </li>
+
+            <!-- Menú Revisión -->
+            <li class="dropdown" (click)="toggleMenu('revision', $event)">
+                <a href="javascript:void(0)" class="dropbtn">Revisión</a>
+                <div class="dropdown-content" [class.show]="activeMenu === 'revision'" (click)="$event.stopPropagation()">
+                    <a routerLink="/create-revision" (click)="closeMenusAndNavigate()">Crear</a>
+                    <a routerLink="/update-revision" (click)="closeMenusAndNavigate()">Actualizar</a>
+                    <a routerLink="/download-certificado" (click)="closeMenusAndNavigate()">Certificados</a>
+                </div>
+            </li>
+
+            <!-- Menú QR -->
+            <li class="dropdown" (click)="toggleMenu('qr', $event)">
+                <a href="javascript:void(0)" class="dropbtn">QR</a>
+                <div class="dropdown-content" [class.show]="activeMenu === 'qr'" (click)="$event.stopPropagation()">
+                    <a routerLink="/create-qr" (click)="closeMenusAndNavigate()">Registrar</a>
+                    <a routerLink="/read-qr" (click)="closeMenusAndNavigate()">Leer</a>
+                    <a routerLink="/qr-reporte" (click)="closeMenusAndNavigate()">Reporte</a>
+                </div>
+            </li>
+            
+              
+        </ul>
+    </nav>
+    <button class="logout-button" (click)="exit()">Salir</button>
+</div>

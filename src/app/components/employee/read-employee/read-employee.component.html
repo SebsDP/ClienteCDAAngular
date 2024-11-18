@@ -1,0 +1,23 @@
+<div class="employee-list">
+  <h2>Lista de Empleados</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Username</th>
+        <th>Rol</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Verifica si hay empleados antes de mostrar la tabla -->
+      <tr *ngIf="employees.length === 0">
+        <td colspan="3" class="no-data">No hay empleados registrados.</td>
+      </tr>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.nombre }}</td>
+        <td>{{ employee.username }}</td>
+        <td>{{ employee.rol }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

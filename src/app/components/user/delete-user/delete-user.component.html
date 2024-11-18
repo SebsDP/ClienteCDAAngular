@@ -1,9 +1,9 @@
 <!-- src/app/components/user/delete-user/delete-user.component.html -->
 <div class="form-container">
-  <h2>Eliminar Usuario</h2>
+  <h2>Eliminar Cliente</h2>
   <div class="form-group">
     <label for="cedula">CÉDULA</label>
-    <input type="number" id="cedula" [(ngModel)]="usuarioId" placeholder="Ingrese la cédula del usuario">
+    <input type="number" id="cedula" [(ngModel)]="usuarioId" placeholder="Ingrese la cédula del cliente">
     <button (click)="buscarUsuario()">Buscar</button>
     <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div>

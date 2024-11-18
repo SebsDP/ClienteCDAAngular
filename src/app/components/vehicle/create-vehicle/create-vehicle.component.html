@@ -1,60 +1,124 @@
 <div class="form-container">
   <h2>Registrar Vehículo</h2>
+
+  <!-- Buscar usuario por cédula -->
   <div class="form-group">
-    <label for="usuarioId">CÉDULA</label>
-    <input type="number" id="usuarioId" [(ngModel)]="usuarioId" name="usuarioId" class="full-width" placeholder="Ingrese la cédula del usuario">
+    <label for="usuarioId">Cédula</label>
+    <input
+      type="number"
+      id="usuarioId"
+      [(ngModel)]="usuarioId"
+      name="usuarioId"
+      class="full-width"
+      placeholder="Ingrese la cédula del usuario"
+    />
   </div>
   <button (click)="buscarUsuario()" class="full-width margin-top">Buscar Usuario</button>
-  <form #vehicleForm="ngForm" (ngSubmit)="crearVehiculo(vehicleForm)" *ngIf="usuarioEncontrado">
+
+  <!-- Formulario de creación de vehículo -->
+  <form
+    #vehicleForm="ngForm"
+    (ngSubmit)="crearVehiculo(vehicleForm, imageInput)"
+    *ngIf="usuarioEncontrado"
+  >
     <div class="form-row margin-top">
       <div class="form-group half-width">
         <label for="placa">Placa</label>
-        <input type="text" id="placa" [(ngModel)]="vehiculo.placa" name="placa" required>
+        <input
+          type="text"
+          id="placa"
+          [(ngModel)]="vehiculo.placa"
+          name="placa"
+          required
+        />
       </div>
       <div class="form-group half-width">
         <label for="fecha">Fecha</label>
-        <input type="date" id="fecha" [(ngModel)]="vehiculo.fecha" name="fecha" required>
+        <input
+          type="date"
+          id="fecha"
+          [(ngModel)]="vehiculo.fecha"
+          name="fecha"
+          required
+        />
       </div>
     </div>
+
     <div class="form-row">
       <div class="form-group half-width">
-        <label for="resultadoTecno">Resultado Técnico</label>
-        <select id="resultadoTecno" [(ngModel)]="vehiculo.resultadoTecno" name="resultadoTecno" required>
-          <option [ngValue]="true">Aprobado</option>
-          <option [ngValue]="false">Reprobado</option>
-        </select>
-      </div>
-      <div class="form-group half-width">
         <label for="soat">SOAT</label>
-        <select id="soat" [(ngModel)]="vehiculo.soat" name="soat" required>
+        <select
+          id="soat"
+          [(ngModel)]="vehiculo.soat"
+          name="soat"
+          required
+        >
           <option [ngValue]="true">Vigente</option>
           <option [ngValue]="false">Vencido</option>
         </select>
       </div>
     </div>
+
     <div class="form-group">
       <label for="tipoVehiculo">Tipo de Vehículo</label>
-      <select id="tipoVehiculo" [(ngModel)]="vehiculo.tipoVehiculo" name="tipoVehiculo" required>
+      <select
+        id="tipoVehiculo"
+        [(ngModel)]="vehiculo.tipoVehiculo"
+        name="tipoVehiculo"
+        required
+      >
         <option value="">Seleccione el tipo de vehículo</option>
         <option value="motocicleta">Motocicleta</option>
         <option value="ligero">Ligero</option>
       </select>
     </div>
+
+    <!-- Campos adicionales según el tipo de vehículo -->
     <div class="form-group" *ngIf="vehiculo.tipoVehiculo === 'motocicleta'">
       <label for="cilindraje">Cilindraje</label>
-      <input type="number" id="cilindraje" [(ngModel)]="vehiculo['cilindraje']" name="cilindraje" required>
+      <input
+        type="number"
+        id="cilindraje"
+        [(ngModel)]="vehiculo['cilindraje']"
+        name="cilindraje"
+        required
+      />
     </div>
+
     <div class="form-group" *ngIf="vehiculo.tipoVehiculo === 'ligero'">
       <label for="numAirbag">Número de Airbags</label>
-      <input type="number" id="numAirbag" [(ngModel)]="vehiculo['numAirbag']" name="numAirbag" required>
+      <input
+        type="number"
+        id="numAirbag"
+        [(ngModel)]="vehiculo['numAirbag']"
+        name="numAirbag"
+        required
+      />
     </div>
-    <button type="submit">Registrar</button>
-    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
-    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+    <!-- Subida de imagen -->
+    <div class="form-group">
+      <label for="imagen">Imagen del Vehículo</label>
+      <input
+        type="file"
+        id="imagen"
+        #imageInput
+        (change)="onImageSelected($event)"
+        accept="image/*"
+      />
+    </div>
+
+    <!-- Previsualización de la imagen -->
+    <div class="image-preview" *ngIf="imagePreview">
+      <img [src]="imagePreview" alt="Previsualización de la imagen" />
+    </div>
+
+    <!-- El botón llama correctamente al método con los argumentos requeridos -->
+    <button type="submit" [disabled]="isSubmitting" class="full-width">Registrar</button>
   </form>
 
-  <!-- Modal para Resultado Técnico -->
-  <div id="myModal" class="modal" [ngClass]="{'show': showAlert}">
+  <!-- Modal para mensajes -->
+  <div id="myModal" class="modal" [ngClass]="{ show: showAlert }">
     <div class="modal-content">
       <span class="close" (click)="closeModal()">&times;</span>
       <p>{{ alertMessage }}</p>

@@ -1,38 +1,7 @@
-<!-- src/app/app.component.html -->
-<div class="navbar" (click)="closeMenus()">
-  <div class="logo-container">
-    <img src="assets/icono.png" alt="Logo" class="logo">
-  </div>
-  <nav>
-    <ul>
-      <li><a routerLink="/">Inicio</a></li>
-      <li class="dropdown" (click)="toggleUserMenu($event)">
-        <a href="javascript:void(0)" class="dropbtn">Usuario</a>
-        <div class="dropdown-content" [class.show]="showUserMenu" (click)="$event.stopPropagation()">
-          <a routerLink="/create-user">Registrar</a>
-          <a routerLink="/read-user">Leer</a>
-          <a routerLink="/update-user">Actualizar</a>
-          <a routerLink="/delete-user">Eliminar</a>
-        </div>
-      </li>
-      <li class="dropdown" (click)="toggleVehicleMenu($event)">
-        <a href="javascript:void(0)" class="dropbtn">Vehículo</a>
-        <div class="dropdown-content" [class.show]="showVehicleMenu" (click)="$event.stopPropagation()">
-          <a routerLink="/create-vehicle">Registrar</a>
-          <a routerLink="/read-vehicle">Leer</a>
-          <a routerLink="/update-vehicle">Actualizar</a>
-          <a routerLink="/delete-vehicle">Eliminar</a>
-        </div>
-      </li>
-      <li class="dropdown" (click)="toggleQrMenu($event)">
-        <a href="javascript:void(0)" class="dropbtn">QR</a>
-        <div class="dropdown-content" [class.show]="showQrMenu" (click)="$event.stopPropagation()">
-          <a routerLink="/create-qr">Registrar</a>
-          <a routerLink="/read-qr">Leer</a>
-          <a routerLink="/read-qr">Generar Reporte</a>
-        </div>
-      </li>
-    </ul>
-  </nav>
+<!-- Navbar fijo -->
+<app-navbar *ngIf="!isLoginPage"></app-navbar>
+
+<!-- Contenido principal de la aplicación -->
+<div class="main-content">
+  <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>

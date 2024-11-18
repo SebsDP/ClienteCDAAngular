@@ -1,0 +1,131 @@
+/* Estructura general */
+@import url("https://fonts.googleapis.com/css2?family=Century+Gothic:wght@400;700&display=swap");
+
+body,
+html {
+  font-family: "Century Gothic", sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Evita el scroll en la página */
+}
+
+/* Navbar simplificado en la página de login */
+.navbar-login {
+  width: 100%;
+  padding: 20px;
+  background-color: #050a35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100px;
+  z-index: 1;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  position: relative; /* Necesario para el pseudo-elemento */
+}
+
+/* Pseudo-elemento para el círculo blanco debajo del logo */
+.logo-container::after {
+  content: "";
+  position: absolute;
+  top: 5%; /* Coloca el círculo justo debajo del logo */
+  left: -0px; /* Ajuste para centrar el círculo bajo el logo */
+  width: 70px;
+  height: 70px;
+  background-color: white;
+  border-radius: 50%;
+  z-index: 0; /* Para que el círculo esté debajo del logo */
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  z-index: 1; /* Asegura que el logo esté sobre el círculo */
+}
+
+.brand-name {
+  font-size: 36px;
+  font-weight: bold;
+  margin-left: 10px;
+  z-index: 1; /* Asegura que el texto esté sobre el círculo */
+}
+
+/* Contenedor general del login */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding-top: 80px; /* Espacio para no estar detrás del navbar */
+  box-sizing: border-box;
+}
+
+/* Caja de login */
+.login-box {
+  background-color: #f8f8f8;
+  padding: 40px;
+  border-radius: 10px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  color: #050a35;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+  color: #aaa;
+}
+
+/* Botón de login */
+.login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 15px; /* Espacio entre el botón y el mensaje de error */
+  text-align: center;
+}

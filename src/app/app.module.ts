@@ -1,4 +1,3 @@
-// src/app/app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +15,19 @@ import { ReadVehicleComponent } from './components/vehicle/read-vehicle/read-veh
 import { UpdateVehicleComponent } from './components/vehicle/update-vehicle/update-vehicle.component';
 import { CreateQrComponent } from './components/qr/create-qr/create-qr.component';
 import { ReadQrComponent } from './components/qr/read-qr/read-qr.component';
+import { LoginComponent } from './components/login/login.component';
+import { NavbarComponent } from './components/navbar/navbar.component'; // Asegúrate de que esta ruta es correcta
+import { AuthService } from './service/auth.service';
 
+// Importar componentes de empleados
+import { CreateEmployeeComponent } from './components/employee/create-employee/create-employee.component';
+import { ReadEmployeeComponent } from './components/employee/read-employee/read-employee.component';
+import { UpdateEmployeeComponent } from './components/employee/update-employee/update-employee.component';
+import { DeleteEmployeeComponent } from './components/employee/delete-employee/delete-employee.component';
+import { RevisionCreateComponent } from './components/revision/create/create.component';
+import { RevisionUpdateComponent } from './components/revision/update/update.component';
+import { CertificateDownloadComponent } from './components/certificado/certificado.component';
+import { ReporteComponent } from './components/qr/reporte/reporte.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +42,19 @@ import { ReadQrComponent } from './components/qr/read-qr/read-qr.component';
     ReadVehicleComponent,
     UpdateVehicleComponent,
     CreateQrComponent,
-    ReadQrComponent
+    ReadQrComponent,
+    LoginComponent,
+    NavbarComponent,
+
+    // Agregar los componentes de empleados a declarations
+    CreateEmployeeComponent,
+    ReadEmployeeComponent,
+    UpdateEmployeeComponent,
+    DeleteEmployeeComponent,
+    CertificateDownloadComponent,
+    RevisionCreateComponent,
+    RevisionUpdateComponent,
+    ReporteComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +62,7 @@ import { ReadQrComponent } from './components/qr/read-qr/read-qr.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,17 +1,18 @@
 /* src/app/components/qr/create-qr/create-qr.component.css */
 .form-container {
-  background-color: #9AB9CA;
+  background-color: #9ab9ca;
   border-radius: 15px;
   padding: 20px;
   width: 50%;
   margin: 50px auto;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border: 2px solid #050A35;
+  border: 2px solid #050a35;
+  margin: 100px auto;
 }
 
 h2 {
   text-align: center;
-  color: #050A35;
+  color: #050a35;
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -24,7 +25,7 @@ label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #050A35;
+  color: #050a35;
 }
 
 textarea {
@@ -43,7 +44,7 @@ button {
   display: block;
   width: 30%;
   padding: 10px;
-  background-color: #050A35;
+  background-color: #050a35;
   color: white;
   border: none;
   border-radius: 5px;

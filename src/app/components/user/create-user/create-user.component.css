@@ -3,17 +3,18 @@
   width: 400px; /* Reducido el ancho del contenedor */
   margin: 50px auto; /* Añadido margen superior para separarlo del navbar */
   padding: 30px; /* Aumentado el padding para que el formulario sea más alargado */
-  border: 2px solid #050A35;
+  border: 2px solid #050a35;
   border-radius: 15px;
-  background-color: #9AB9CA;
+  background-color: #9ab9ca;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left; /* Cambiado el texto a la izquierda */
+  margin: 100px auto;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 30px; /* Aumentado el margen inferior */
-  color: #050A35;
+  color: #050a35;
   font-weight: bold;
 }
 
@@ -24,7 +25,7 @@ h2 {
 .form-group label {
   display: block;
   margin-bottom: 10px; /* Aumentado el margen inferior */
-  color: #050A35;
+  color: #050a35;
   font-weight: bold;
   text-transform: uppercase; /* Cambiado el texto a mayúsculas */
 }
@@ -38,7 +39,7 @@ h2 {
 }
 
 button {
-  background-color: #050A35;
+  background-color: #050a35;
   color: white;
   padding: 15px; /* Aumentado el padding para hacer el botón más alto */
   border: none;
@@ -53,7 +54,14 @@ button:hover {
   background-color: #0056b3;
 }
 .success-message {
-  color: green;
+  color: #003366; /* Azul oscuro */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: #660000; /* Rojo oscuro para el mensaje de error */
   font-weight: bold;
   text-align: center;
   margin-top: 10px;

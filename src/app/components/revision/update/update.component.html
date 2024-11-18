@@ -1,0 +1,60 @@
+<div class="form-container">
+  <h2>Actualizar Revisión</h2>
+
+  <!-- Buscar revisión por ID -->
+  <div class="form-group">
+    <label for="revisionId">ID de la Revisión:</label>
+    <input
+      type="number"
+      id="revisionId"
+      [(ngModel)]="revisionId"
+      name="revisionId"
+      placeholder="Ingrese el ID de la revisión"
+    />
+    <button (click)="buscarRevision()">Buscar Revisión</button>
+  </div>
+
+  <!-- Mensajes de éxito y error -->
+  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <!-- Formulario para actualizar revisión -->
+  <form #revisionForm="ngForm" (ngSubmit)="actualizarRevision(revisionForm)" *ngIf="revision.vehiculoPlaca">
+    <div class="form-group">
+      <label for="vehiculoPlaca">Placa del Vehículo:</label>
+      <input
+        type="text"
+        id="vehiculoPlaca"
+        [(ngModel)]="vehiculoPlaca"
+        name="vehiculoPlaca"
+        readonly
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="fechaRevision">Fecha de Revisión:</label>
+      <input
+        type="date"
+        id="fechaRevision"
+        [(ngModel)]="revision.fechaRevision"
+        name="fechaRevision"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="resultadoRevision">Resultado de la Revisión:</label>
+      <select
+        id="resultadoRevision"
+        [(ngModel)]="revision.resultadoRevision"
+        name="resultadoRevision"
+        required
+      >
+        <option [ngValue]="true">Aprobado</option>
+        <option [ngValue]="false">Reprobado</option>
+      </select>
+    </div>
+
+    <button type="submit">Actualizar Revisión</button>
+  </form>
+</div>

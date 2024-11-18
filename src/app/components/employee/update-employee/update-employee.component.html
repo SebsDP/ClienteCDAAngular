@@ -1,0 +1,78 @@
+<!-- src/app/components/employee/update-employee/update-employee.component.html -->
+<div class="form-container">
+    <h2>Actualizar Empleado</h2>
+    
+    <!-- Buscar Empleado por ID -->
+    <form (ngSubmit)="buscarEmpleado()">
+      <div class="form-group">
+        <label for="employeeId">CÉDULA del Empleado</label>
+        <input
+          type="number"
+          id="employeeId"
+          [(ngModel)]="employeeId"
+          name="employeeId"
+          placeholder="Ingrese la Cédula del empleado"
+          required
+        />
+        <button type="submit">Buscar Empleado</button>
+      </div>
+    </form>
+  
+    <!-- Mensaje de Error al Buscar Empleado -->
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  
+    <!-- Formulario para Actualizar Empleado (visible solo si se encuentra el empleado) -->
+    <form *ngIf="employee.cedula !== undefined" #employeeForm="ngForm" (ngSubmit)="actualizarEmpleado(employeeForm)">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input
+          type="text"
+          id="nombre"
+          [(ngModel)]="employee.nombre"
+          name="nombre"
+          placeholder="Ingrese el nombre del empleado"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="username">Nombre de Usuario</label>
+        <input
+          type="text"
+          id="username"
+          [(ngModel)]="employee.username"
+          name="username"
+          placeholder="Ingrese el nombre de usuario"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="employee.password"
+          name="password"
+          placeholder="Ingrese la contraseña"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="rol">Rol</label>
+        <input
+          type="text"
+          id="rol"
+          [(ngModel)]="employee.rol"
+          name="rol"
+          placeholder="Ingrese el rol del empleado"
+          required
+        />
+      </div>
+      
+      <button type="submit">Actualizar Empleado</button>
+      
+      <!-- Mensaje de éxito -->
+      <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    </form>
+  
+  </div>
+  

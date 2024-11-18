@@ -1,8 +1,7 @@
-// src/app/components/user/create-user/create-user.component.ts
 import { Component } from '@angular/core';
 import { ServicioCdaService } from "../../../service/servicio-cda.service";
 import { Usuario } from "../../../model/user.model";
-import {NgForm} from "@angular/forms";
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-create-user',
@@ -12,15 +11,34 @@ import {NgForm} from "@angular/forms";
 export class CreateUserComponent {
   usuario: Usuario = { cedula: undefined, nombre: '', correo: '', vehiculos: [] };
   successMessage: string = '';
+  errorMessage: string = '';
 
   constructor(private servicioCda: ServicioCdaService) {}
 
   crearUsuario(form: NgForm): void {
-    this.servicioCda.createUsuario(this.usuario).subscribe(response => {
-      console.log('Usuario creado:', response);
-      this.successMessage = 'Usuario registrado exitosamente';
-      form.resetForm();
-      setTimeout(() => this.successMessage = '', 3000);
+    if (!this.usuario.cedula || !this.usuario.correo || !this.usuario.nombre) {
+      this.errorMessage = 'Todos los campos son obligatorios.';
+      setTimeout(() => this.errorMessage = '', 5000);
+      return;
+    }
+
+    this.servicioCda.createUsuario(this.usuario).subscribe({
+      next: (response) => {
+        console.log('Usuario creado:', response);
+        this.successMessage = 'Usuario registrado exitosamente';
+        this.errorMessage = '';
+        form.resetForm();
+        setTimeout(() => this.successMessage = '', 5000);
+      },
+      error: (error) => {
+        if (error.status === 409) {
+          this.errorMessage = 'Ya existe un usuario con esa cédula o correo.';
+        } else {
+          this.errorMessage = 'Ya existe un usuario con esa cédula o correo.';
+        }
+        console.error('Error al crear usuario:', error);
+        setTimeout(() => this.errorMessage = '', 5000);
+      }
     });
   }
 }

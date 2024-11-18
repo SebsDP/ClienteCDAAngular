@@ -1,20 +1,24 @@
 <!-- src/app/components/user/create-user/create-user.component.html -->
 <div class="form-container">
-  <h2>Registro de Usuario</h2>
+  <h2>Registro de Cliente</h2>
   <form #userForm="ngForm" (ngSubmit)="crearUsuario(userForm)">
     <div class="form-group">
       <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" [(ngModel)]="usuario.nombre" name="nombre" placeholder="Ingrese el nombre completo del usuario" required>
+      <input type="text" id="nombre" [(ngModel)]="usuario.nombre" name="nombre" placeholder="Ingrese el nombre completo del cliente" required>
     </div>
     <div class="form-group">
       <label for="cedula">Cédula</label>
-      <input type="text" id="cedula" [(ngModel)]="usuario.cedula" name="cedula" placeholder="Ingrese la cédula del usuario" required>
+      <input type="text" id="cedula" [(ngModel)]="usuario.cedula" name="cedula" placeholder="Ingrese la cédula del cliente" required>
     </div>
     <div class="form-group">
       <label for="correo">Email</label>
-      <input type="email" id="correo" [(ngModel)]="usuario.correo" name="correo" placeholder="Ingrese el correo del usuario" required>
+      <input type="email" id="correo" [(ngModel)]="usuario.correo" name="correo" placeholder="Ingrese el correo del cliente" required>
     </div>
     <button type="submit">Registrar</button>
-    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <!-- Mensaje de éxito -->
+  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+
+  <!-- Mensaje de error -->
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
   </form>
 </div>

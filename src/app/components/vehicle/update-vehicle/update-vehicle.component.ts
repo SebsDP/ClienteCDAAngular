@@ -55,9 +55,6 @@ export class UpdateVehicleComponent {
       this.servicioCda.updateVehiculo(this.usuarioId, this.placa, this.vehiculo).subscribe(response => {
         console.log('Vehículo actualizado:', response);
         this.successMessage = 'Vehículo actualizado exitosamente';
-        if (this.vehiculo) {
-          this.alertMessage = this.vehiculo.resultadoTecno ? 'Su resultado técnico-mecánico ha sido aprobado' : 'Su resultado técnico-mecánico ha sido reprobado';
-        }
         this.showAlert = true;
         form.resetForm();
         setTimeout(() => this.successMessage = '', 3000);

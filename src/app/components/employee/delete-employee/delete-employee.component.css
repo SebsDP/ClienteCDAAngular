@@ -1,0 +1,73 @@
+.form-container {
+  width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  border: 2px solid #050a35;
+  border-radius: 15px;
+  background-color: #9ab9ca;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #050a35;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group.id-group {
+  margin-bottom: 40px; /* Mayor separación debajo del campo de búsqueda */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  color: #050a35;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #050a35;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #004080;
+}
+
+.success-message {
+  color: #003366; /* Azul oscuro */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: #660000; /* Rojo oscuro para el mensaje de error */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}

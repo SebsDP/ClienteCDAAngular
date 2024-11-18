@@ -1,0 +1,126 @@
+/* Ajustes generales para el navbar */
+.navbar {
+  background-color: #050a35;
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed; /* Hace que el navbar esté fijo en la parte superior */
+  top: 0; /* Posiciona el navbar en la parte superior de la ventana */
+  width: 100%; /* Ocupa todo el ancho de la pantalla */
+  z-index: 1000; /* Se asegura de que el navbar esté por encima de otros elementos */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.logo-container::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: -5px;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  z-index: 1;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 1;
+}
+
+/* Estilos de las opciones del menú */
+nav ul {
+  list-style-type: none;
+  display: flex;
+  gap: 15px; /* Reducido el espacio entre las opciones */
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 25px;
+  transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #1a2b5a;
+}
+
+/* Menú desplegable */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #050a35;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 8px;
+  padding: 8px 0;
+  white-space: nowrap;
+  margin-top: 8px;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+  background-color: #1a2b5a;
+}
+
+.dropbtn {
+  cursor: pointer;
+}
+
+/* Estilos para el botón de salir */
+.logout-button {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: -170px; /* Reduce este valor si es necesario para juntar más */
+}
+
+.logout-button:hover {
+  background-color: #b52a36;
+}
+
+/* Añadir margen superior al contenido principal */
+.main-content {
+  margin-top: 100px; /* Ajusta este valor según la altura del navbar */
+}

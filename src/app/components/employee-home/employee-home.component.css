@@ -1,0 +1,40 @@
+/* src/app/components/employee-home/employee-home.component.css */
+
+.employee-home-container {
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #050a35;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.employee-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.action-button {
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #1d4ed8;
+}

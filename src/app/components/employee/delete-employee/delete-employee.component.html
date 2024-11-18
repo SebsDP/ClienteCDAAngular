@@ -1,0 +1,21 @@
+<div class="form-container">
+  <h2>Eliminar Empleado</h2>
+  <div class="form-group">
+    <label for="cedula">CÉDULA del Empleado</label>
+    <input type="number" id="cedula" [(ngModel)]="employeeId" placeholder="Ingrese la cédula del empleado">
+    <button (click)="buscarEmpleado()">Buscar</button>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </div>
+  <div *ngIf="employee">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" [(ngModel)]="employee.nombre" readonly>
+    </div>
+    <div class="form-group">
+      <label for="username">Nombre de Usuario</label>
+      <input type="text" id="username" [(ngModel)]="employee.username" readonly>
+    </div>
+    <button type="button" (click)="eliminarEmpleado()">Eliminar</button>
+  </div>
+  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+</div>
