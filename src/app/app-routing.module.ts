@@ -19,8 +19,6 @@ import { DeleteEmployeeComponent } from './components/employee/delete-employee/d
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { EmployeeHomeComponent } from './components/employee-home/employee-home.component';
 import { RevisionCreateComponent } from './components/revision/create/create.component';
-import { RevisionUpdateComponent } from './components/revision/update/update.component';
-import { CertificateDownloadComponent } from './components/certificado/certificado.component';
 import { ReporteComponent } from './components/qr/reporte/reporte.component'; // Corrige el import del componente de reporte
 
 const routes: Routes = [
@@ -54,10 +52,6 @@ const routes: Routes = [
 
   // Rutas de revisiones
   { path: 'create-revision', component: RevisionCreateComponent },
-  { path: 'update-revision', component: RevisionUpdateComponent },
-
-  // Ruta para descargar certificados
-  { path: 'download-certificado', component: CertificateDownloadComponent },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];

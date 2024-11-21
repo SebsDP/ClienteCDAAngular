@@ -1,34 +1,44 @@
 .form-container {
-  width: 600px;
+  width: 100%;
+  max-width: 800px;
   margin: 50px auto;
   padding: 30px;
   border: 2px solid #050a35;
   border-radius: 15px;
   background-color: #9ab9ca;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
   margin: 100px auto;
 }
 
 h2 {
   text-align: center;
+  margin-bottom: 30px;
+  color: #050a35;
+  font-weight: bold;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 20px;
   color: #050a35;
   font-weight: bold;
 }
 
 .filter-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 .filter-buttons button {
-  width: 32%;
   background-color: #050a35;
   color: white;
-  padding: 10px;
+  padding: 10px 20px;
   border: none;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -39,38 +49,77 @@ h2 {
 
 .form-group {
   margin-bottom: 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-input[type="number"],
-input[type="text"] {
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #050a35;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.form-group input {
   width: 100%;
+  max-width: 300px;
   padding: 10px;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-.vehicle-list table {
+.form-group button {
+  background-color: #050a35;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-group button:hover {
+  background-color: #0056b3;
+}
+
+table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.vehicle-list th,
-.vehicle-list td {
+table th,
+table td {
+  border: 1px solid #050a35;
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #050a35;
+  color: white;
+  text-transform: uppercase;
+}
+
+table td {
+  background-color: #e9f1f6;
+}
+
+.success-message,
+.alert-message {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #660000; /* Rojo oscuro para los errores */
 }
 
 .success-message {
-  color: #003366; /* Azul oscuro */
-  font-weight: bold;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.error-message {
   color: #660000; /* Rojo oscuro para los errores */
   font-weight: bold;
   text-align: center;

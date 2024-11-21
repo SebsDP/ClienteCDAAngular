@@ -1,27 +1,50 @@
 <div class="form-container">
-  <h2>Registrar Revisión</h2>
+  <h2>Crear Revisión</h2>
 
-  <!-- Campo para buscar el vehículo -->
-  <div class="form-group">
-    <label for="vehiculoPlaca">Placa del Vehículo:</label>
-    <input
-      type="text"
-      id="vehiculoPlaca"
+  <!-- Buscar cliente por cédula -->
+  <form (ngSubmit)="buscarCliente()">
+    <div class="form-group">
+      <label for="cedulaUsuario">CÉDULA</label>
+      <input
+        type="number"
+        id="cedulaUsuario"
+        [(ngModel)]="usuarioId"
+        name="cedulaUsuario"
+        placeholder="Ingrese la cédula del cliente"
+        required
+      />
+      <button type="submit" class="full-width margin-top">Buscar Cliente</button>
+    </div>
+  </form>
+
+  <!-- Mostrar lista de vehículos -->
+  <div *ngIf="vehiculos.length > 0"
+    class="form-group">
+    <label for="vehiculoSeleccionado">Seleccione un Vehículo</label>
+    <select
+      id="vehiculoSeleccionado"
       [(ngModel)]="vehiculoPlaca"
-      name="vehiculoPlaca"
-      placeholder="Ingrese la placa del vehículo"
-    />
-    <button (click)="buscarVehiculo()">Buscar Vehículo</button>
+      name="vehiculoSeleccionado"
+      (change)="seleccionarVehiculo($event)"
+      class="full-width"
+      required
+    >
+      <option value="">Seleccione un vehículo</option>
+      <option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.placa">
+        {{ vehiculo.placa }}
+      </option>
+    </select>
   </div>
 
-  <!-- Mensajes de éxito y error -->
-  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <!-- Mostrar mensaje de error si no hay vehículos -->
+  <div *ngIf="errorVehiculoMessage" class="error-message">
+    {{ errorVehiculoMessage }}
+  </div>
 
-  <!-- Formulario para registrar la revisión -->
-  <form #revisionForm="ngForm" (ngSubmit)="crearRevision(revisionForm)" *ngIf="vehiculoEncontrado">
+  <!-- Mostrar detalles de la revisión -->
+  <form (ngSubmit)="crearRevision()" *ngIf="vehiculoEncontrado">
     <div class="form-group">
-      <label for="fechaRevision">Fecha de Revisión:</label>
+      <label for="fechaRevision">Fecha de Revisión</label>
       <input
         type="date"
         id="fechaRevision"
@@ -32,7 +55,7 @@
     </div>
 
     <div class="form-group">
-      <label for="resultadoRevision">Resultado de la Revisión:</label>
+      <label for="resultadoRevision">Resultado de la Revisión</label>
       <select
         id="resultadoRevision"
         [(ngModel)]="revision.resultadoRevision"
@@ -44,6 +67,10 @@
       </select>
     </div>
 
-    <button type="submit">Registrar Revisión</button>
+    <button type="submit" class="full-width margin-top">Registrar Revisión</button>
   </form>
+
+  <!-- Mensajes de éxito y error -->
+  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 </div>

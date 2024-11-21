@@ -25,8 +25,6 @@ import { ReadEmployeeComponent } from './components/employee/read-employee/read-
 import { UpdateEmployeeComponent } from './components/employee/update-employee/update-employee.component';
 import { DeleteEmployeeComponent } from './components/employee/delete-employee/delete-employee.component';
 import { RevisionCreateComponent } from './components/revision/create/create.component';
-import { RevisionUpdateComponent } from './components/revision/update/update.component';
-import { CertificateDownloadComponent } from './components/certificado/certificado.component';
 import { ReporteComponent } from './components/qr/reporte/reporte.component';
 
 @NgModule({
@@ -51,9 +49,7 @@ import { ReporteComponent } from './components/qr/reporte/reporte.component';
     ReadEmployeeComponent,
     UpdateEmployeeComponent,
     DeleteEmployeeComponent,
-    CertificateDownloadComponent,
     RevisionCreateComponent,
-    RevisionUpdateComponent,
     ReporteComponent
   ],
   imports: [

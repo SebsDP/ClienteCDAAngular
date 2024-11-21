@@ -1,35 +1,63 @@
 <div class="form-container">
   <h2>Actualizar Vehículo</h2>
-  <div class="form-group">
-    <label for="usuarioId">CÉDULA</label>
-    <input type="number" id="usuarioId" [(ngModel)]="usuarioId" name="usuarioId" placeholder="Ingrese la cédula del usuario">
-    <button (click)="buscarUsuario()" class="full-width margin-top">Buscar Usuario</button>
-    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+  <!-- Formulario para buscar usuario -->
+  <form (ngSubmit)="buscarUsuario()">
+    <div class="form-group">
+      <label for="usuarioId">CÉDULA</label>
+      <input
+        type="number"
+        id="usuarioId"
+        [(ngModel)]="usuarioId"
+        name="usuarioId"
+        placeholder="Ingrese la cédula del usuario"
+        required
+      />
+      <button type="submit" class="full-width margin-top">Buscar Usuario</button>
+      <p *ngIf="errorUsuarioMessage" class="error-message">{{ errorUsuarioMessage }}</p>
+      <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    </div>
+  </form>
+
+  <!-- Dropdown para seleccionar placa -->
+  <div *ngIf="usuarioEncontrado && placas.length > 0" class="form-group">
+    <label for="placa">Seleccione la Placa del Vehículo</label>
+    <select
+      id="placa"
+      [(ngModel)]="placaSeleccionada"
+      name="placaSeleccionada"
+      (change)="cargarVehiculo()"
+      class="full-width"
+      required
+    >
+      <option value="">Seleccione una placa</option>
+      <option *ngFor="let placa of placas" [value]="placa">{{ placa }}</option>
+    </select>
+    <p *ngIf="errorVehiculoMessage" class="error-message">{{ errorVehiculoMessage }}</p>
   </div>
 
-  <div *ngIf="usuarioEncontrado" class="form-group">
-    <label for="placa">Placa del Vehículo</label>
-    <input type="text" id="placa" [(ngModel)]="placa" name="placa" placeholder="Ingrese la placa del vehículo">
-    <button (click)="buscarVehiculo()" class="full-width margin-top">Buscar Vehículo</button>
-    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
-  </div>
-
+  <!-- Formulario para actualizar vehículo -->
   <form #vehicleForm="ngForm" (ngSubmit)="actualizarVehiculo(vehicleForm)" *ngIf="vehiculo">
     <div class="form-group">
       <label for="fecha">Fecha</label>
-      <input type="date" id="fecha" [(ngModel)]="vehiculo.fecha" name="fecha" class="full-width" required>
+      <input
+        type="date"
+        id="fecha"
+        [(ngModel)]="vehiculo.fecha"
+        name="fecha"
+        class="full-width"
+        required
+      />
     </div>
     <div class="form-row">
       <div class="form-group half-width">
-        <label for="resultadoTecno">Resultado Técnico</label>
-        <select id="resultadoTecno" [(ngModel)]="vehiculo.resultadoTecno" name="resultadoTecno" required>
-          <option [ngValue]="true">Aprobado</option>
-          <option [ngValue]="false">Reprobado</option>
-        </select>
-      </div>
-      <div class="form-group half-width">
         <label for="soat">SOAT</label>
-        <select id="soat" [(ngModel)]="vehiculo.soat" name="soat" required>
+        <select
+          id="soat"
+          [(ngModel)]="vehiculo.soat"
+          name="soat"
+          required
+        >
           <option [ngValue]="true">Vigente</option>
           <option [ngValue]="false">Vencido</option>
         </select>
@@ -37,7 +65,12 @@
     </div>
     <div class="form-group">
       <label for="tipoVehiculo">Tipo de Vehículo</label>
-      <select id="tipoVehiculo" [(ngModel)]="vehiculo.tipoVehiculo" name="tipoVehiculo" required>
+      <select
+        id="tipoVehiculo"
+        [(ngModel)]="vehiculo.tipoVehiculo"
+        name="tipoVehiculo"
+        required
+      >
         <option value="">Seleccione el tipo de vehículo</option>
         <option value="motocicleta">Motocicleta</option>
         <option value="ligero">Ligero</option>
@@ -45,22 +78,26 @@
     </div>
     <div class="form-group" *ngIf="vehiculo.tipoVehiculo === 'motocicleta'">
       <label for="cilindraje">Cilindraje</label>
-      <input type="number" id="cilindraje" [(ngModel)]="vehiculo['cilindraje']" name="cilindraje" required>
+      <input
+        type="number"
+        id="cilindraje"
+        [(ngModel)]="vehiculo['cilindraje']"
+        name="cilindraje"
+        required
+      />
     </div>
     <div class="form-group" *ngIf="vehiculo.tipoVehiculo === 'ligero'">
       <label for="numAirbag">Número de Airbags</label>
-      <input type="number" id="numAirbag" [(ngModel)]="vehiculo['numAirbag']" name="numAirbag" required>
+      <input
+        type="number"
+        id="numAirbag"
+        [(ngModel)]="vehiculo['numAirbag']"
+        name="numAirbag"
+        required
+      />
     </div>
-    <button type="submit">Actualizar</button>
+    <button type="submit" class="full-width">Actualizar</button>
     <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
-    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p *ngIf="errorVehiculoMessage" class="error-message">{{ errorVehiculoMessage }}</p>
   </form>
-
-  <!-- Modal -->
-  <div id="myModal" class="modal" [ngClass]="{'show': showAlert}">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <p>{{ alertMessage }}</p>
-    </div>
-  </div>
 </div>

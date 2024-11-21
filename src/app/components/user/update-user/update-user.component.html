@@ -1,21 +1,52 @@
 <!-- src/app/components/user/update-user/update-user.component.html -->
 <div class="form-container">
   <h2>Actualizar Cliente</h2>
-  <div class="form-group">
-    <label for="buscarCedula">CÉDULA</label>
-    <input type="number" id="buscarCedula" [(ngModel)]="cedula" name="buscarCedula" placeholder="Ingrese la cédula del cliente">
-    <button (click)="buscarUsuario()">Buscar</button>
-  </div>
+
+  <!-- Formulario para buscar usuario -->
+  <form (ngSubmit)="buscarUsuario()">
+    <div class="form-group">
+      <label for="buscarCedula">CÉDULA</label>
+      <input
+        type="number"
+        id="buscarCedula"
+        [(ngModel)]="cedula"
+        name="buscarCedula"
+        placeholder="Ingrese la cédula del cliente"
+        required
+      />
+      <button type="submit" class="full-width margin-top">Buscar</button>
+    </div>
+    <p *ngIf="errorMessage && !usuario.cedula" class="error-message">{{ errorMessage }}</p>
+    <p *ngIf="successMessage && !usuario.cedula" class="success-message">{{ successMessage }}</p>
+  </form>
+
+  <!-- Formulario para actualizar usuario -->
   <form #userForm="ngForm" (ngSubmit)="actualizarUsuario(userForm)" *ngIf="usuario.cedula">
     <div class="form-group">
       <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" [(ngModel)]="usuario.nombre" name="nombre" placeholder="Ingrese el nombre completo del cliente" required>
+      <input
+        type="text"
+        id="nombre"
+        [(ngModel)]="usuario.nombre"
+        name="nombre"
+        placeholder="Ingrese el nombre completo del cliente"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="correo">Email</label>
-      <input type="email" id="correo" [(ngModel)]="usuario.correo" name="correo" placeholder="Ingrese el correo del cliente" required>
+      <input
+        type="email"
+        id="correo"
+        [(ngModel)]="usuario.correo"
+        name="correo"
+        placeholder="Ingrese el correo del cliente"
+        required
+      />
     </div>
-    <button type="submit">Actualizar</button>
-    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <button type="submit" class="full-width margin-top">Actualizar</button>
   </form>
+
+  <!-- Mensajes de éxito y error -->
+  <p *ngIf="errorMessage && usuario.cedula" class="error-message">{{ errorMessage }}</p>
 </div>

@@ -28,7 +28,6 @@ export class ReadVehicleComponent implements OnInit {
         this.vehiculos = response;
         this.filteredVehiculos = response;
         this.errorMessage = '';
-        this.successMessage = `Se cargaron ${response.length} vehículo(s) en total.`;
         setTimeout(() => (this.successMessage = ''), 5000);
       },
       error: () => {
@@ -54,14 +53,13 @@ export class ReadVehicleComponent implements OnInit {
         next: (response) => {
           this.filteredVehiculos = response;
           this.errorMessage = '';
-          this.successMessage = `Se encontraron ${response.length} vehículo(s) para el usuario con cédula ${this.usuarioId}.`;
-          setTimeout(() => (this.successMessage = ''), 5000);
+          setTimeout(() => (this.successMessage = ''), 4000);
         },
         error: () => {
           this.filteredVehiculos = [];
-          this.errorMessage = 'No se encontraron vehículos para este usuario.';
+          this.errorMessage = 'No se encontraron vehículos para este cliente.';
           this.successMessage = '';
-          setTimeout(() => (this.errorMessage = ''), 5000);
+          setTimeout(() => (this.errorMessage = ''), 4000);
         }
       });
     } else if (this.filterType === 'placa' && this.placa) {
@@ -69,14 +67,13 @@ export class ReadVehicleComponent implements OnInit {
         next: (response) => {
           this.filteredVehiculos = [response];
           this.errorMessage = '';
-          this.successMessage = `Vehículo con placa ${this.placa} encontrado.`;
-          setTimeout(() => (this.successMessage = ''), 5000);
+          setTimeout(() => (this.successMessage = ''), 4000);
         },
         error: () => {
           this.filteredVehiculos = [];
           this.errorMessage = 'No se encontró un vehículo con esa placa.';
           this.successMessage = '';
-          setTimeout(() => (this.errorMessage = ''), 5000);
+          setTimeout(() => (this.errorMessage = ''), 4000);
         }
       });
     }

@@ -1,20 +1,19 @@
-/* src/app/components/qr/create-qr/create-qr.component.css */
 .form-container {
-  background-color: #9ab9ca;
-  border-radius: 15px;
-  padding: 20px;
-  width: 50%;
+  width: 400px;
   margin: 50px auto;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
   border: 2px solid #050a35;
+  border-radius: 15px;
+  background-color: #9ab9ca;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 100px auto;
 }
 
 h2 {
   text-align: center;
+  margin-bottom: 20px;
   color: #050a35;
   font-weight: bold;
-  margin-bottom: 20px;
 }
 
 .form-group {
@@ -23,43 +22,55 @@ h2 {
 
 label {
   display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   color: #050a35;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+textarea,
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
 textarea {
-  width: 100%;
-  height: 200px; /* Increase the height of the textarea */
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
   resize: none;
-  box-sizing: border-box;
-  font-size: 16px; /* Increase the font size for better readability */
 }
 
-button {
-  display: block;
-  width: 30%;
+.btn-submit {
+  width: 100%;
   padding: 10px;
   background-color: #050a35;
   color: white;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
   font-weight: bold;
-  margin: 0 auto;
+  cursor: pointer;
 }
 
-button:hover {
-  background-color: #004080;
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+.alert {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
 }
 
 .success-message {
-  color: green;
+  color: #003366;
   font-weight: bold;
-  text-align: center;
-  margin-top: 10px;
+}
+
+.error-message {
+  color: #660000;
+  font-weight: bold;
 }

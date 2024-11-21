@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8081/CDA'; // URL base de tu API
@@ -19,13 +19,13 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login`, body, { headers }).pipe(
       tap((response) => {
         if (response && response.role) {
-          localStorage.setItem('username', username); // Guardar el username
+          localStorage.setItem('username', response.username); // Guardar el username
           localStorage.setItem('role', response.role); // Guardar el rol
         }
       }),
       catchError((error) => {
         console.error('Error al realizar la solicitud de login:', error);
-        return of(null); // Devolver null en caso de error
+        return of({ error: 'Login failed' }); // Devolver un objeto con el error
       })
     );
   }

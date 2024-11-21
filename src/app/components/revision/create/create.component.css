@@ -76,20 +76,10 @@ button:hover {
 }
 
 .error-message {
-  color: #660000; /* Rojo oscuro para los errores */
+  color: #660000; /* Rojo oscuro para el mensaje de error */
   font-weight: bold;
   text-align: center;
   margin-top: 10px;
-}
-
-.alert {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 20px;
-  text-align: center;
-  font-weight: bold;
 }
 
 /* Modal CSS */

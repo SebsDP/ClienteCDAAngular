@@ -3,21 +3,75 @@
   <form #employeeForm="ngForm" (ngSubmit)="crearEmpleado(employeeForm)">
     <div class="form-group">
       <label for="cedula">Cédula</label>
-      <input type="number" id="cedula" [(ngModel)]="employee.cedula" name="cedula" placeholder="Ingrese la cédula del empleado" required />
+      <input
+        type="number"
+        id="cedula"
+        [(ngModel)]="employee.cedula"
+        name="cedula"
+        placeholder="Ingrese la cédula del empleado"
+        required
+        #cedulaCtrl="ngModel"
+      />
+      <small *ngIf="cedulaCtrl.invalid && cedulaCtrl.touched" class="error-message">
+        La cédula es obligatoria.
+      </small>
     </div>
+
     <div class="form-group">
       <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" [(ngModel)]="employee.nombre" name="nombre" placeholder="Ingrese el nombre del empleado" required />
+      <input
+        type="text"
+        id="nombre"
+        [(ngModel)]="employee.nombre"
+        name="nombre"
+        placeholder="Ingrese el nombre del empleado"
+        required
+        #nombreCtrl="ngModel"
+      />
+      <small *ngIf="nombreCtrl.invalid && nombreCtrl.touched" class="error-message">
+        El nombre es obligatorio.
+      </small>
     </div>
+
     <div class="form-group">
       <label for="username">Nombre de Usuario</label>
-      <input type="text" id="username" [(ngModel)]="employee.username" name="username" placeholder="Ingrese el nombre de usuario" required />
+      <input
+        type="text"
+        id="username"
+        [(ngModel)]="employee.username"
+        name="username"
+        placeholder="Ingrese el nombre de usuario"
+        required
+        #usernameCtrl="ngModel"
+      />
+      <small *ngIf="usernameCtrl.invalid && usernameCtrl.touched" class="error-message">
+        El nombre de usuario es obligatorio.
+      </small>
     </div>
+
     <div class="form-group">
       <label for="password">Contraseña</label>
-      <input type="password" id="password" [(ngModel)]="employee.password" name="password" placeholder="Ingrese la contraseña" required />
+      <input
+        type="password"
+        id="password"
+        [(ngModel)]="employee.password"
+        name="password"
+        placeholder="Ingrese la contraseña"
+        required
+        #passwordCtrl="ngModel"
+      />
+      <small *ngIf="passwordCtrl.invalid && passwordCtrl.touched" class="error-message">
+        La contraseña es obligatoria.
+      </small>
     </div>
-    <button type="submit">Registrar Empleado</button>
+
+    <!-- Botón de envío -->
+    <button
+      type="submit"
+      class="full-width margin-top"
+    >
+      Registrar Empleado
+    </button>
   </form>
 
   <!-- Mensaje de éxito -->

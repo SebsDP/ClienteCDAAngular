@@ -1,12 +1,36 @@
-<!-- src/app/components/qr/create-qr/create-qr.component.html -->
 <div class="form-container">
-  <h2>Registro de Quejas y Recomendaciones</h2>
-  <form #qrForm="ngForm" (ngSubmit)="crearQR(qrForm)">
+  <h2>Crear QR</h2>
+  <form #qrForm="ngForm" (ngSubmit)="createQR(qrForm)">
     <div class="form-group">
-      <label for="quejasRecomendaciones">Quejas/Recomendaciones</label>
-      <textarea id="quejasRecomendaciones" [(ngModel)]="qr.quejasRecomendaciones" name="quejasRecomendaciones" placeholder="Adjunte todo lo que manifieste el usuario" required></textarea>
+      <label for="quejasRecomendaciones">Quejas/Recomendaciones:</label>
+      <textarea
+        id="quejasRecomendaciones"
+        [(ngModel)]="qr.quejasRecomendaciones"
+        name="quejasRecomendaciones"
+        required
+        placeholder="Ingrese las quejas o recomendaciones"
+      ></textarea>
     </div>
-    <button type="submit">Registrar</button>
-    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+
+    <div class="form-group">
+      <label for="fechaCreacion">Fecha de Creación:</label>
+      <input
+        type="date"
+        id="fechaCreacion"
+        [(ngModel)]="qr.fechaCreacion"
+        name="fechaCreacion"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn-submit" [disabled]="qrForm.invalid">
+      Crear QR
+    </button>
   </form>
+
+  <!-- Mensajes -->
+  <div *ngIf="successMessage || errorMessage" class="alert">
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </div>
 </div>

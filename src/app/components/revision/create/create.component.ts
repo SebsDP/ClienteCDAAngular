@@ -1,78 +1,141 @@
 import { Component } from '@angular/core';
-import { ServicioCdaService } from '../../../service/servicio-cda.service';
-import { AuthService } from '../../../service/auth.service';
+import { Router } from '@angular/router';
 import { Revision } from '../../../model/revision.model';
-import { NgForm } from '@angular/forms';
+import { AuthService } from '../../../service/auth.service';
+import { ServicioCdaService } from '../../../service/servicio-cda.service';
 
 @Component({
   selector: 'app-revision-create',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  styleUrls: ['./create.component.css'],
 })
 export class RevisionCreateComponent {
-  vehiculoPlaca: string = ''; // Placa del vehículo
-  vehiculoEncontrado: boolean = false; // Bandera para validar si se encontró el vehículo
+  usuarioId: number | undefined; // ID del cliente (cédula)
+  usuarioEncontrado: boolean = false;
+  vehiculos: any[] = []; // Inicializar como un arreglo vacío
+  vehiculoPlaca: string = ''; // Placa seleccionada
+  vehiculoEncontrado: boolean = false; // Indica si el vehículo fue encontrado
   revision: Revision = {
-    fechaRevision: new Date(),
-    resultadoRevision: false,
-    vehiculoPlaca: '',
+    fechaRevision: null as unknown as Date, // Fecha de revisión
+    resultadoRevision: true, // Resultado de la revisión
+    vehiculoPlaca: '', // Placa del vehículo
+    empleadoUsername: '', // Usuario empleado
   };
   successMessage: string = '';
   errorMessage: string = '';
+  errorVehiculoMessage: string = ''; // Mensaje de error para vehículos
   showAlert: boolean = false;
 
-  constructor(private servicioCda: ServicioCdaService, private authService: AuthService) {}
+  constructor(
+    private servicioCda: ServicioCdaService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  // Buscar vehículo por placa
-  buscarVehiculo(): void {
-    if (this.vehiculoPlaca) {
-      this.servicioCda.getVehiculoByPlaca(this.vehiculoPlaca).subscribe({
-        next: () => {
-          this.vehiculoEncontrado = true; // Marcar que se encontró el vehículo
-          this.revision.vehiculoPlaca = this.vehiculoPlaca; // Asignar la placa al modelo de revisión
-          this.errorMessage = '';
-          setTimeout(() => (this.successMessage = ''), 3000);
-        },
-        error: () => {
-          this.vehiculoEncontrado = false; // Marcar que no se encontró el vehículo
-          this.errorMessage = `No se encontró un vehículo con la placa ${this.vehiculoPlaca}.`;
-          setTimeout(() => (this.errorMessage = ''), 3000);
-        }
-      });
-    } else {
-      this.errorMessage = 'Debe ingresar la placa del vehículo antes de buscar.';
-      setTimeout(() => (this.errorMessage = ''), 3000);
-    }
-  }
-
-  // Crear revisión
-  crearRevision(form: NgForm): void {
-    const username = this.authService.getUsername(); // Obtener el username desde el AuthService
-    if (!username) {
-      this.errorMessage = 'No se pudo determinar el usuario actual. Por favor, inicie sesión.';
-      setTimeout(() => (this.errorMessage = ''), 3000);
+  // Buscar cliente por cédula y obtener sus vehículos
+  buscarCliente(): void {
+    if (!this.usuarioId) {
+      this.errorMessage = 'Debe ingresar la cédula del usuario.';
       return;
     }
+
+    this.servicioCda.getUsuarioById(this.usuarioId).subscribe(
+      () => {
+        this.usuarioEncontrado = true;
+        this.errorMessage = '';
+      },
+      () => {
+        this.usuarioEncontrado = false;
+        this.errorMessage = 'No se encontró un cliente con esa cédula.';
+      }
+      
+    );
+    this.servicioCda.getVehiculosByUsuarioCedula(this.usuarioId).subscribe({
+      next: (vehiculos) => {
+        this.vehiculos = vehiculos;
+        this.errorMessage = '';
+        this.errorVehiculoMessage =
+          vehiculos.length === 0
+            ? 'No se encontraron vehículos registrados para este cliente.'
+            : '';
+      },
+      error: () => {
+        this.vehiculos = [];
+        this.errorVehiculoMessage = 'No se encontró un cliente con esa cédula.';
+        this.errorMessage = '';
+      },
+    });
+  }
+
+  // Seleccionar un vehículo de la lista desplegable
+  seleccionarVehiculo(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement; // Aseguramos que el target sea un elemento HTMLSelectElement
+    this.vehiculoPlaca = selectElement.value; // Extraemos el valor seleccionado
+    this.vehiculoEncontrado = !!this.vehiculoPlaca; // Actualizamos el estado de "vehiculoEncontrado"
+  }
   
-    if (this.vehiculoPlaca && this.vehiculoEncontrado) {
-      this.revision.vehiculoPlaca = this.vehiculoPlaca; // Asignar la placa al modelo de revisión
+
+  // Crear una nueva revisión
+   // Create a new revision
+   crearRevision(): void {
+    const username = this.authService.getUsername(); // Get the logged-in username
+
+    // Validate required fields
+    if (!this.vehiculoPlaca) {
+      this.errorMessage = 'Debe ingresar la placa del vehículo.';
+      this.hideMessageAfterTimeout();
+      return;
+    }
+
+    if (!this.revision.fechaRevision) {
+      this.errorMessage = 'Debe ingresar la fecha de revisión.';
+      this.hideMessageAfterTimeout();
+      return;
+    }
+
+    if (username) {
+      this.revision.empleadoUsername = username; // Add the username to the revision object
+
       this.servicioCda.createRevision(this.vehiculoPlaca, this.revision, username).subscribe({
         next: () => {
           this.successMessage = 'Revisión registrada exitosamente.';
           this.errorMessage = '';
-          this.vehiculoEncontrado = false; // Reiniciar bandera después de crear
-          form.resetForm(); // Limpiar el formulario
-          setTimeout(() => (this.successMessage = ''), 3000);
+          this.resetForm();
+          this.hideMessageAfterTimeout();
         },
         error: (err) => {
-          this.errorMessage = err.error.message || 'Error al registrar la revisión. Intente nuevamente.';
+          this.errorMessage = 'Error al registrar la revisión. Intente nuevamente.';
           this.successMessage = '';
-          setTimeout(() => (this.errorMessage = ''), 3000);
-        }
+          this.hideMessageAfterTimeout();
+          console.error(err);
+        },
       });
     } else {
-      this.errorMessage = 'Debe buscar un vehículo antes de registrar la revisión.';
-      setTimeout(() => (this.errorMessage = ''), 3000);
+      this.errorMessage = 'No se encontró el usuario autenticado. Por favor, inicie sesión.';
+      this.hideMessageAfterTimeout();
     }
-  }  
+  }
+
+  // Restablecer el formulario después del registro exitoso
+  resetForm(): void {
+    this.usuarioId = undefined;
+    this.vehiculos = [];
+    this.vehiculoPlaca = '';
+    this.vehiculoEncontrado = false;
+    this.revision = {
+      fechaRevision: null as unknown as Date, // Restablecer la fecha
+      resultadoRevision: true,
+      vehiculoPlaca: '',
+      empleadoUsername: '', // Restablecer el campo de usuario
+    };
+  }
+
+  // Ocultar mensajes después de un tiempo
+  hideMessageAfterTimeout(): void {
+    setTimeout(() => {
+      this.successMessage = '';
+      this.errorMessage = '';
+      this.errorVehiculoMessage = '';
+    }, 3000); // 3 segundos de espera
+  }
 }

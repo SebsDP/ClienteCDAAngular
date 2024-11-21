@@ -3,6 +3,7 @@
   <table>
     <thead>
       <tr>
+        <th>Cédula</th>
         <th>Nombre</th>
         <th>Username</th>
         <th>Rol</th>
@@ -11,9 +12,10 @@
     <tbody>
       <!-- Verifica si hay empleados antes de mostrar la tabla -->
       <tr *ngIf="employees.length === 0">
-        <td colspan="3" class="no-data">No hay empleados registrados.</td>
+        <td colspan="4" class="no-data">No hay empleados registrados.</td>
       </tr>
       <tr *ngFor="let employee of employees">
+        <td>{{ employee.cedula }}</td>
         <td>{{ employee.nombre }}</td>
         <td>{{ employee.username }}</td>
         <td>{{ employee.rol }}</td>

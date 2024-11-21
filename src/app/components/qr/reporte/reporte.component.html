@@ -1,47 +1,53 @@
 <div class="form-container">
-    <h2>Generar Reportes</h2>
-  
-    <!-- Generar reporte por año -->
-    <div class="form-group">
-      <label for="ano">Año:</label>
-      <input
-        type="number"
-        id="ano"
-        [(ngModel)]="ano"
-        placeholder="Ingrese el año"
-        class="form-control"
-        min="1900"
-        max="2100"
-      />
-      <button class="btn btn-primary" (click)="generateReportByYear()" [disabled]="!ano">
-        Generar Reporte por Año
-      </button>
-    </div>
-  
-    <!-- Generar reporte por mes -->
-    <div class="form-group">
-      <label for="mes">Mes:</label>
-      <select id="mes" [(ngModel)]="mes" class="form-control">
-        <option value="" disabled selected>Seleccione un mes</option>
-        <option *ngFor="let month of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="month">
-          {{ month }}
-        </option>
-      </select>
-      <button class="btn btn-primary" (click)="generateReportByMonth()" [disabled]="!ano || !mes">
-        Generar Reporte por Mes
-      </button>
-    </div>
-  
-    <!-- Mensajes de éxito y error -->
-    <div
-      *ngIf="successMessage || errorMessage"
-      class="alert"
-      [ngClass]="{
-        'alert-success': successMessage,
-        'alert-danger': errorMessage
-      }"
-    >
-      {{ successMessage || errorMessage }}
-    </div>
+  <h2>Generar Reportes</h2>
+
+  <!-- Initial Step -->
+  <div *ngIf="step === 'initial'" class="step-container">
+    <button (click)="selectYear()" class="btn-step">Generar Reporte por Año</button>
+    <button (click)="selectMonth()" class="btn-step">Generar Reporte por Mes</button>
   </div>
-  
+
+  <!-- Year Selection Step -->
+  <div *ngIf="step === 'year'" class="step-container">
+    <label for="ano">Seleccione el Año:</label>
+    <input
+      type="number"
+      id="ano"
+      [(ngModel)]="ano"
+      placeholder="Ingrese el año"
+    />
+    <button (click)="generateReportByYear()" [disabled]="!ano" class="btn-submit">
+      Descargar Reporte por Año
+    </button>
+    <button (click)="step = 'initial'" class="btn-back">Volver</button>
+  </div>
+
+  <!-- Month Selection Step -->
+  <div *ngIf="step === 'month'" class="step-container">
+    <label for="ano">Seleccione el Año:</label>
+    <input
+      type="number"
+      id="ano"
+      [(ngModel)]="ano"
+      placeholder="Ingrese el año"
+      readonly
+    />
+    <label for="mes">Seleccione el Mes:</label>
+    <select id="mes" [(ngModel)]="mes">
+      <option value="" disabled selected>Seleccione un mes</option>
+      <option *ngFor="let month of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="month">
+        {{ month }}
+      </option>
+    </select>
+    <button (click)="generateReportByMonth()" [disabled]="!mes" class="btn-submit">
+      Descargar Reporte por Mes
+    </button>
+    <button (click)="step = 'initial'" class="btn-back">Volver</button>
+  </div>
+
+  <!-- Feedback Messages -->
+  <div *ngIf="successMessage || errorMessage" class="alert">
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </div>
+</div>

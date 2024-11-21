@@ -28,7 +28,7 @@ export class DeleteUserComponent {
         }
       );
     } else {
-      this.errorMessage = 'Debe ingresar una cédula válida.';
+      this.errorMessage = 'Debe ingresar la cédula del cliente.';
     }
   }
 
@@ -41,7 +41,7 @@ export class DeleteUserComponent {
             this.successMessage = 'Usuario eliminado exitosamente';
             this.errorMessage = '';
             this.resetForm();
-            setTimeout(() => (this.successMessage = ''), 3000);
+            setTimeout(() => (this.successMessage = ''), 4000);
           },
           (error) => {
             this.errorMessage = 'Error al eliminar el usuario.';

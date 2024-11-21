@@ -142,3 +142,17 @@ button.margin-top {
   text-decoration: none;
   cursor: pointer;
 }
+
+.success-message {
+  color: #003366; /* Azul oscuro */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: #660000; /* Rojo oscuro para los errores */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}

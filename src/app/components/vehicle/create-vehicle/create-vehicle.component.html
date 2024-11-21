@@ -2,25 +2,30 @@
   <h2>Registrar Vehículo</h2>
 
   <!-- Buscar usuario por cédula -->
-  <div class="form-group">
-    <label for="usuarioId">Cédula</label>
-    <input
-      type="number"
-      id="usuarioId"
-      [(ngModel)]="usuarioId"
-      name="usuarioId"
-      class="full-width"
-      placeholder="Ingrese la cédula del usuario"
-    />
-  </div>
-  <button (click)="buscarUsuario()" class="full-width margin-top">Buscar Usuario</button>
+  <form #usuarioForm="ngForm" (ngSubmit)="buscarUsuario()">
+    <div class="form-group">
+      <label for="usuarioId">Cédula</label>
+      <input
+        type="number"
+        id="usuarioId"
+        [(ngModel)]="usuarioId"
+        name="usuarioId"
+        class="full-width"
+        placeholder="Ingrese la cédula del cliente"
+        required
+        #usuarioIdCtrl="ngModel"
+      />
+      <small *ngIf="usuarioIdCtrl.invalid && usuarioIdCtrl.touched" class="error-message">
+        La cédula es obligatoria.
+      </small>
+    </div>
+    <button type="submit" class="full-width margin-top">Buscar Cliente</button>
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </form>
 
   <!-- Formulario de creación de vehículo -->
-  <form
-    #vehicleForm="ngForm"
-    (ngSubmit)="crearVehiculo(vehicleForm, imageInput)"
-    *ngIf="usuarioEncontrado"
-  >
+  <form #vehicleForm="ngForm" (ngSubmit)="crearVehiculo(vehicleForm, imageInput)" *ngIf="usuarioEncontrado">
     <div class="form-row margin-top">
       <div class="form-group half-width">
         <label for="placa">Placa</label>
@@ -30,7 +35,13 @@
           [(ngModel)]="vehiculo.placa"
           name="placa"
           required
+          (input)="verificarPlaca()"
+          maxlength="6"
+          #placaCtrl="ngModel"
         />
+        <small *ngIf="placaError || (placaCtrl.invalid && placaCtrl.touched)" class="error-message">
+          {{ placaError || 'La placa es obligatoria.' }}
+        </small>
       </div>
       <div class="form-group half-width">
         <label for="fecha">Fecha</label>
@@ -40,25 +51,32 @@
           [(ngModel)]="vehiculo.fecha"
           name="fecha"
           required
+          #fechaCtrl="ngModel"
         />
+        <small *ngIf="fechaCtrl.invalid && fechaCtrl.touched" class="error-message">
+          La fecha es obligatoria.
+        </small>
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="form-group half-width">
-        <label for="soat">SOAT</label>
-        <select
-          id="soat"
-          [(ngModel)]="vehiculo.soat"
-          name="soat"
-          required
-        >
-          <option [ngValue]="true">Vigente</option>
-          <option [ngValue]="false">Vencido</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="soat">SOAT</label>
+      <select
+        id="soat"
+        [(ngModel)]="vehiculo.soat"
+        name="soat"
+        required
+        #soatCtrl="ngModel"
+      >
+        <option value="">Seleccione el estado del SOAT</option>
+        <option [ngValue]="'true'">Vigente</option>
+        <option [ngValue]="'false'">Vencido</option>
+      </select>
+      <small *ngIf="soatError" class="error-message">{{ soatError }}</small>
+      <small *ngIf="soatCtrl.invalid && soatCtrl.touched && !soatError" class="error-message">
+        El estado del SOAT es obligatorio.
+      </small>
     </div>
-
     <div class="form-group">
       <label for="tipoVehiculo">Tipo de Vehículo</label>
       <select
@@ -66,14 +84,17 @@
         [(ngModel)]="vehiculo.tipoVehiculo"
         name="tipoVehiculo"
         required
+        #tipoVehiculoCtrl="ngModel"
       >
         <option value="">Seleccione el tipo de vehículo</option>
         <option value="motocicleta">Motocicleta</option>
         <option value="ligero">Ligero</option>
       </select>
+      <small *ngIf="tipoVehiculoCtrl.invalid && tipoVehiculoCtrl.touched" class="error-message">
+        El tipo de vehículo es obligatorio.
+      </small>
     </div>
 
-    <!-- Campos adicionales según el tipo de vehículo -->
     <div class="form-group" *ngIf="vehiculo.tipoVehiculo === 'motocicleta'">
       <label for="cilindraje">Cilindraje</label>
       <input
@@ -82,7 +103,11 @@
         [(ngModel)]="vehiculo['cilindraje']"
         name="cilindraje"
         required
+        #cilindrajeCtrl="ngModel"
       />
+      <small *ngIf="cilindrajeCtrl.invalid && cilindrajeCtrl.touched" class="error-message">
+        El cilindraje es obligatorio.
+      </small>
     </div>
 
     <div class="form-group" *ngIf="vehiculo.tipoVehiculo === 'ligero'">
@@ -93,10 +118,13 @@
         [(ngModel)]="vehiculo['numAirbag']"
         name="numAirbag"
         required
+        #numAirbagCtrl="ngModel"
       />
+      <small *ngIf="numAirbagCtrl.invalid && numAirbagCtrl.touched" class="error-message">
+        El número de airbags es obligatorio.
+      </small>
     </div>
 
-    <!-- Subida de imagen -->
     <div class="form-group">
       <label for="imagen">Imagen del Vehículo</label>
       <input
@@ -105,23 +133,17 @@
         #imageInput
         (change)="onImageSelected($event)"
         accept="image/*"
+        required
       />
+      <!-- Mostrar la previsualización de la imagen si existe -->
+      <div *ngIf="imagePreview" class="image-preview-container">
+        <img [src]="imagePreview" alt="Previsualización de la imagen" class="image-preview" />
+      </div>
     </div>
+    
+    <button type="submit" class="full-width">Registrar</button>
 
-    <!-- Previsualización de la imagen -->
-    <div class="image-preview" *ngIf="imagePreview">
-      <img [src]="imagePreview" alt="Previsualización de la imagen" />
-    </div>
-
-    <!-- El botón llama correctamente al método con los argumentos requeridos -->
-    <button type="submit" [disabled]="isSubmitting" class="full-width">Registrar</button>
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
   </form>
-
-  <!-- Modal para mensajes -->
-  <div id="myModal" class="modal" [ngClass]="{ show: showAlert }">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <p>{{ alertMessage }}</p>
-    </div>
-  </div>
 </div>

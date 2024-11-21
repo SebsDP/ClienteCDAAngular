@@ -1,43 +1,77 @@
 <div class="form-container">
   <h2>Eliminar Vehículo</h2>
-  <div class="form-group">
-    <label for="usuarioId">CÉDULA</label>
-    <input type="number" id="usuarioId" [(ngModel)]="usuarioId" name="usuarioId" placeholder="Ingrese la cédula del usuario">
-    <button (click)="buscarUsuario()" class="full-width margin-top">Buscar Usuario</button>
-    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+  <!-- Formulario para buscar usuario -->
+  <form (ngSubmit)="buscarUsuario()">
+    <div class="form-group">
+      <label for="usuarioId">CÉDULA</label>
+      <input
+        type="number"
+        id="usuarioId"
+        [(ngModel)]="usuarioId"
+        name="usuarioId"
+        placeholder="Ingrese la cédula del usuario"
+        required
+      />
+      <button
+        type="submit"
+        class="full-width margin-top"
+        [disabled]="isSubmitting"
+      >
+        Buscar Usuario
+      </button>
+    </div>
+    <p *ngIf="errorMessage && !usuarioEncontrado" class="error-message">{{ errorMessage }}</p>
+  </form>
+
+  <!-- Dropdown para seleccionar placa -->
+  <div *ngIf="usuarioEncontrado && vehiculos.length > 0" class="form-group">
+    <label for="placaSeleccionada">Seleccione la Placa del Vehículo</label>
+    <select
+      id="placaSeleccionada"
+      [(ngModel)]="placaSeleccionada"
+      name="placaSeleccionada"
+      (change)="cargarDetallesVehiculo()"
+      class="full-width"
+    >
+      <option value="">Seleccione una placa</option>
+      <option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.placa">
+        {{ vehiculo.placa }}
+      </option>
+    </select>
   </div>
 
-  <div *ngIf="usuarioEncontrado && vehiculos.length > 0">
-    <h3>VEHÍCULOS DEL USUARIO</h3>
-    <table>
-      <thead>
-      <tr>
-        <th>Placa</th>
-        <th>Fecha</th>
-        <th>Resultado Técnico</th>
-        <th>SOAT</th>
-        <th>Tipo</th>
-        <th>Detalles</th>
-        <th>Acción</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let vehiculo of vehiculos">
-        <td>{{ vehiculo.placa }}</td>
-        <td>{{ vehiculo.fecha | date }}</td>
-        <td>{{ vehiculo.resultadoTecno ? 'Aprobado' : 'Reprobado' }}</td>
-        <td>{{ vehiculo.soat ? 'Vigente' : 'Vencido' }}</td>
-        <td>{{ vehiculo.tipoVehiculo }}</td>
-        <td>
-          <span *ngIf="vehiculo.tipoVehiculo === 'motocicleta'">Cilindraje: {{ vehiculo['cilindraje'] }}</span>
-          <span *ngIf="vehiculo.tipoVehiculo === 'ligero'">Número de Airbags: {{ vehiculo['numAirbag'] }}</span>
-        </td>
-        <td>
-          <button type="button" (click)="eliminarVehiculo(vehiculo)">Eliminar</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <!-- Detalles del vehículo -->
+  <div *ngIf="vehiculoSeleccionado" class="form-group">
+    <h3>Detalles del Vehículo</h3>
+    <p><strong>Placa:</strong> {{ vehiculoSeleccionado.placa }}</p>
+    <p><strong>Fecha:</strong> {{ vehiculoSeleccionado.fecha | date }}</p>
+    <p>
+      <strong>Resultado Técnico:</strong>
+      {{ vehiculoSeleccionado.resultadoTecno ? 'Aprobado' : 'Reprobado' }}
+    </p>
+    <p>
+      <strong>SOAT:</strong>
+      {{ vehiculoSeleccionado.soat ? 'Vigente' : 'Vencido' }}
+    </p>
+    <p><strong>Tipo:</strong> {{ vehiculoSeleccionado.tipoVehiculo }}</p>
+    <p *ngIf="vehiculoSeleccionado.tipoVehiculo === 'motocicleta'">
+      <strong>Cilindraje:</strong> {{ vehiculoSeleccionado['cilindraje'] }}
+    </p>
+    <p *ngIf="vehiculoSeleccionado.tipoVehiculo === 'ligero'">
+      <strong>Número de Airbags:</strong> {{ vehiculoSeleccionado['numAirbag'] }}
+    </p>
+    <button
+      type="button"
+      (click)="eliminarVehiculo(vehiculoSeleccionado)"
+      [disabled]="isSubmitting"
+      class="margin-top"
+    >
+      Eliminar Vehículo
+    </button>
   </div>
+
+  <!-- Mensajes de éxito y error -->
   <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+  <p *ngIf="errorMessage && usuarioEncontrado" class="error-message">{{ errorMessage }}</p>
 </div>

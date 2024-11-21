@@ -8,7 +8,7 @@ export interface Vehiculo {
   placa: string;
   fecha: Date;
   resultadoTecno?: boolean;
-  soat: boolean;
+  soat:boolean | string;
   tipoVehiculo: string;
   usuario?: Usuario; // Agregamos esta propiedad opcional
   cilindraje?: number; // Opcional para motocicletas

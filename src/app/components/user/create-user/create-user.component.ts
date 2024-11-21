@@ -12,13 +12,21 @@ export class CreateUserComponent {
   usuario: Usuario = { cedula: undefined, nombre: '', correo: '', vehiculos: [] };
   successMessage: string = '';
   errorMessage: string = '';
+  emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular para validar correos
 
   constructor(private servicioCda: ServicioCdaService) {}
 
   crearUsuario(form: NgForm): void {
-    if (!this.usuario.cedula || !this.usuario.correo || !this.usuario.nombre) {
-      this.errorMessage = 'Todos los campos son obligatorios.';
-      setTimeout(() => this.errorMessage = '', 5000);
+    if (!this.usuario.cedula || !this.usuario.nombre || !this.usuario.correo) {
+      this.errorMessage = 'Por favor, llene todos los campos.';
+      setTimeout(() => this.errorMessage = '', 4000);
+      return;
+    }
+
+    // Validar el formato del correo
+    if (!this.emailRegex.test(this.usuario.correo)) {
+      this.errorMessage = 'Por favor, ingrese un correo válido.';
+      setTimeout(() => this.errorMessage = '', 4000);
       return;
     }
 
@@ -28,16 +36,16 @@ export class CreateUserComponent {
         this.successMessage = 'Usuario registrado exitosamente';
         this.errorMessage = '';
         form.resetForm();
-        setTimeout(() => this.successMessage = '', 5000);
+        setTimeout(() => this.successMessage = '', 4000);
       },
       error: (error) => {
         if (error.status === 409) {
           this.errorMessage = 'Ya existe un usuario con esa cédula o correo.';
         } else {
-          this.errorMessage = 'Ya existe un usuario con esa cédula o correo.';
+          this.errorMessage = 'Ocurrió un error al registrar el usuario.';
         }
         console.error('Error al crear usuario:', error);
-        setTimeout(() => this.errorMessage = '', 5000);
+        setTimeout(() => this.errorMessage = '', 4000);
       }
     });
   }

@@ -124,3 +124,15 @@ nav ul li a:hover {
 .main-content {
   margin-top: 100px; /* Ajusta este valor según la altura del navbar */
 }
+
+/* Estilos del navbar específico para admin */
+.admin-navbar ul {
+  margin-left: 380px; /* Alinear completamente a la derecha */
+  gap: 20px; /* Espacio entre las opciones */
+}
+
+/* Estilos del navbar específico para empleados */
+.employee-navbar ul {
+  margin-left: 10%; /* Desplazar un poco desde la izquierda */
+  gap: 15px; /* Espacio estándar entre las opciones */
+}

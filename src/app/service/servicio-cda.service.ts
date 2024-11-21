@@ -77,17 +77,25 @@ export class ServicioCdaService {
     return this.http.post<QR>(`${this.apiUrl}/qr`, contenido);
   }
 
-  getAllQRs(): Observable<QR[]> {
-    return this.http.get<QR[]>(`${this.apiUrl}/qr`);
-  }
+ // Obtener todos los QR
+ getAllQRs(): Observable<QR[]> {
+  return this.http.get<QR[]>(`${this.apiUrl}/qr`);
+}
 
-  generateQRReportByYear(ano: number): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/qr/reporte/ano/${ano}`, { responseType: 'blob' });
-  }
+ // Generate report by year
+ generateQRReportByYear(ano: number): Observable<Blob> {
+  return this.http.get(`${this.apiUrl}/qr/reporte/${ano}`, {
+    responseType: 'blob',
+  });
+}
 
-  generateQRReportByMonth(ano: number, mes: number): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/qr/reporte/mes/${ano}/${mes}`, { responseType: 'blob' });
-  }
+// Generate report by year and month
+generateQRReportByMonth(ano: number, mes: number): Observable<Blob> {
+  return this.http.get(`${this.apiUrl}/qr/reporte/${ano}/${mes}`, {
+    responseType: 'blob',
+  });
+}
+
 
   // Métodos de Empleado
   createEmployee(employee: Employee): Observable<Employee> {
@@ -110,11 +118,13 @@ export class ServicioCdaService {
     return this.http.delete<void>(`${this.apiUrl}/empleados/${id}`);
   }
 
+  // Métodos de Revisiones
+
   createRevision(vehiculoPlaca: string, revision: Revision, username: string): Observable<Revision> {
     const params = new HttpParams().set('username', username);
     return this.http.post<Revision>(`${this.apiUrl}/revisiones/${vehiculoPlaca}`, revision, { params });
   }
-  
+
   updateRevision(vehiculoPlaca: string, revision: Revision, username: string): Observable<Revision> {
     const params = new HttpParams().set('username', username);
     return this.http.put<Revision>(`${this.apiUrl}/revisiones/${vehiculoPlaca}`, revision, { params });
@@ -128,16 +138,5 @@ export class ServicioCdaService {
     return this.http.get<Revision>(`${this.apiUrl}/revisiones/${id}`);
   }
 
-  // Métodos de Certificado Técnico Mecánico
-  getAllCertificados(): Observable<CertificadoTecnicoMecanica[]> {
-    return this.http.get<CertificadoTecnicoMecanica[]>(`${this.apiUrl}/certificados`);
-  }
 
-  getCertificadoById(id: number): Observable<CertificadoTecnicoMecanica> {
-    return this.http.get<CertificadoTecnicoMecanica>(`${this.apiUrl}/certificados/${id}`);
-  }
-
-  downloadCertificate(certificateId: number): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/certificados/${certificateId}/download`, { responseType: 'blob' });
-  }
 }

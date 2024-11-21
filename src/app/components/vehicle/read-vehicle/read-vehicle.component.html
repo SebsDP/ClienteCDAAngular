@@ -9,45 +9,62 @@
   </div>
 
   <!-- Filtro por Cédula -->
-  <div *ngIf="filterType === 'cedula'" class="form-group">
-    <label for="usuarioId">Cédula del Usuario:</label>
-    <input type="number" id="usuarioId" [(ngModel)]="usuarioId" placeholder="Ingrese la cédula">
-    <button (click)="buscarVehiculos()">Buscar</button>
-  </div>
+  <form (ngSubmit)="buscarVehiculos()" *ngIf="filterType === 'cedula'" class="form-group">
+    <label for="usuarioId">Cédula del Cliente:</label>
+    <input
+      type="number"
+      id="usuarioId"
+      [(ngModel)]="usuarioId"
+      name="usuarioId"
+      placeholder="Ingrese la cédula"
+      required
+    />
+    <button type="submit">Buscar</button>
+  </form>
 
   <!-- Filtro por Placa -->
-  <div *ngIf="filterType === 'placa'" class="form-group">
+  <form (ngSubmit)="buscarVehiculos()" *ngIf="filterType === 'placa'" class="form-group">
     <label for="placa">Placa del Vehículo:</label>
-    <input type="text" id="placa" [(ngModel)]="placa" placeholder="Ingrese la placa">
-    <button (click)="buscarVehiculos()">Buscar</button>
-  </div>
+    <input
+      type="text"
+      id="placa"
+      [(ngModel)]="placa"
+      name="placa"
+      placeholder="Ingrese la placa"
+      required
+    />
+    <button type="submit">Buscar</button>
+  </form>
 
-  <!-- Mensajes de Error y Éxito -->
-  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  <!-- Tabla de vehículos -->
+  <h3>Listado de Vehículos</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Placa</th>
+        <th>Fecha</th>
+        <th>SOAT</th>
+        <th>Tipo de Vehículo</th>
+        <th>Detalles</th>
+        <th>Cédula del Cliente</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vehiculo of filteredVehiculos">
+        <td>{{ vehiculo.placa }}</td>
+        <td>{{ vehiculo.fecha | date }}</td>
+        <td>{{ vehiculo.soat ? 'Vigente' : 'Vencido' }}</td>
+        <td>{{ vehiculo.tipoVehiculo }}</td>
+        <td>
+          <span *ngIf="vehiculo.tipoVehiculo === 'motocicleta'">Cilindraje: {{ vehiculo['cilindraje'] }}</span>
+          <span *ngIf="vehiculo.tipoVehiculo === 'ligero'">Número de Airbags: {{ vehiculo['numAirbag'] }}</span>
+        </td>
+        <td>{{ vehiculo.usuario?.cedula }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-  <!-- Tabla de Vehículos -->
-  <div *ngIf="filteredVehiculos.length > 0" class="vehicle-list">
-    <h3>Listado de Vehículos</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Placa</th>
-          <th>Fecha</th>
-          <th>SOAT</th>
-          <th>Tipo de Vehículo</th>
-          <th>Cédula del Usuario</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let vehiculo of filteredVehiculos">
-          <td>{{ vehiculo.placa }}</td>
-          <td>{{ vehiculo.fecha | date }}</td>
-          <td>{{ vehiculo.soat ? 'Vigente' : 'Vencido' }}</td>
-          <td>{{ vehiculo.tipoVehiculo }}</td>
-          <td>{{ vehiculo.usuario?.cedula }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- Mensajes -->
+  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="alert-message">{{ errorMessage }}</p>
 </div>

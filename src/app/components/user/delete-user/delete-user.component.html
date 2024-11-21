@@ -1,22 +1,38 @@
-<!-- src/app/components/user/delete-user/delete-user.component.html -->
 <div class="form-container">
   <h2>Eliminar Cliente</h2>
-  <div class="form-group">
-    <label for="cedula">CÉDULA</label>
-    <input type="number" id="cedula" [(ngModel)]="usuarioId" placeholder="Ingrese la cédula del cliente">
-    <button (click)="buscarUsuario()">Buscar</button>
+
+  <!-- Formulario para buscar cliente -->
+  <form (ngSubmit)="buscarUsuario()">
+    <div class="form-group">
+      <label for="cedula">CÉDULA</label>
+      <input
+        type="number"
+        id="cedula"
+        [(ngModel)]="usuarioId"
+        name="cedula"
+        placeholder="Ingrese la cédula del cliente"
+        required
+      />
+      <button type="submit" class="full-width margin-top">Buscar</button>
+    </div>
     <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </form>
+
+  <!-- Detalles del cliente -->
+  <div *ngIf="usuario" class="form-group">
+    <h3>Detalles del Cliente</h3>
+    <p><strong>Cédula:</strong> {{ usuario.cedula }}</p>
+    <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
+    <p><strong>Correo Electrónico:</strong> {{ usuario.correo }}</p>
+    <button
+      type="button"
+      (click)="eliminarUsuario()"
+      class="full-width margin-top"
+    >
+      Eliminar Cliente
+    </button>
   </div>
-  <div *ngIf="usuario">
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" [(ngModel)]="usuario.nombre" readonly>
-    </div>
-    <div class="form-group">
-      <label for="correo">Correo Electrónico</label>
-      <input type="email" id="correo" [(ngModel)]="usuario.correo" readonly>
-    </div>
-    <button type="button" (click)="eliminarUsuario()">Eliminar</button>
-  </div>
+
+  <!-- Mensajes de éxito y error -->
   <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
 </div>

@@ -10,6 +10,7 @@ import { Renderer2 } from '@angular/core';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   isAdmin: boolean = false;
+  isEmployee: boolean = false;
   activeMenu: string | null = null; // Controla el menú activo
   private globalClickListener: (() => void) | undefined;
 
@@ -18,6 +19,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Determinar si el usuario tiene rol de administrador
     this.isAdmin = this.authService.getRole() === 'ADMIN';
+    this.isEmployee = this.authService.getRole() === 'EMPLOYEE';
 
     // Escucha los clics en cualquier lugar de la página
     this.globalClickListener = this.renderer.listen('document', 'click', () => {
